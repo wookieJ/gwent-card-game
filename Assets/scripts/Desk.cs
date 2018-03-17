@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cardMove : MonoBehaviour {
-
+public class Desk : MonoBehaviour {
     
 }

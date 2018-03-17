@@ -7,11 +7,12 @@ public class Card : MonoBehaviour
     private string cardName;
     private int power;
     private int index;
+    private bool active = false;
     private CardModel cardModel;
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D cardColider;
     public GameObject cardModelGameObject;
-
+    
     //TODO - another getters and setters
     public string getCardName()
     {
@@ -31,6 +32,21 @@ public class Card : MonoBehaviour
     public void setIndex(int index)
     {
         this.index = index;
+    }
+
+    public void setActive(bool state)
+    {
+        this.active = state;
+    }
+
+    public bool isActive()
+    {
+        return this.active;
+    }
+
+    public Bounds getBounds()
+    {
+        return this.cardColider.bounds;
     }
 
     public string toString()
@@ -53,6 +69,13 @@ public class Card : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log("Pressed on card " + this.index);
+        //this.active = true;
+       /*
+        * if (areas.getDeckColliderBounds().Contains(this.transform.position))
+        {
+            Vector3 up = new Vector3(0, 0.2f, 0);
+            // TODO - zabezpieczyć aby wysuwało się tylko raz
+            this.transform.position += up;
+        }*/
     }
 }

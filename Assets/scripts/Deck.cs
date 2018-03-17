@@ -35,4 +35,21 @@ public class Deck : MonoBehaviour
             cardsInDeck.Add(clone);
         }
     }
+
+    public IEnumerable<Card> getCards()
+    {
+        foreach(Card i in cardsInDeck)
+        {
+            yield return i;
+        }
+    }
+
+    /*
+      if (areas.getDeckColliderBounds().Contains(this.transform.position))
+        {
+            Vector3 up = new Vector3(0, 0.2f, 0);
+            // TODO - zabezpieczyć aby wysuwało się tylko raz
+            this.transform.position += up;
+        }
+    */
 }

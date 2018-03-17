@@ -51,15 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\scripts\Areas.cs" />
      <Compile Include="Assets\scripts\Card.cs" />
      <Compile Include="Assets\scripts\CardModel.cs" />
-     <Compile Include="Assets\scripts\cardMove.cs" />
-     <Compile Include="Assets\scripts\DebugCreateCard.cs" />
      <Compile Include="Assets\scripts\Deck.cs" />
-     <Compile Include="Assets\scripts\DeskScript.cs" />
+     <Compile Include="Assets\scripts\Desk.cs" />
+     <Compile Include="Assets\scripts\Game.cs" />
      <Compile Include="Assets\scripts\LoadScene.cs" />
      <Compile Include="Assets\scripts\MenuScript.cs" />
-     <Compile Include="Assets\scripts\NewBehaviourScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
