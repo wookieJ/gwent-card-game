@@ -34,6 +34,11 @@ public class Card : MonoBehaviour
         this.index = index;
     }
 
+    public int getIndex()
+    {
+        return this.index;
+    }
+
     public void setActive(bool state)
     {
         this.active = state;
@@ -58,7 +63,7 @@ public class Card : MonoBehaviour
     {
         spriteRenderer.sprite = cardModel.getFront(index);
     }
-
+    
     void Awake()
     {
         cardModel = cardModelGameObject.GetComponent<CardModel>();

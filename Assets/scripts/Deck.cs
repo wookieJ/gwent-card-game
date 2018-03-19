@@ -6,6 +6,9 @@ public class Deck : MonoBehaviour
 {
     Card baseCard;
     public List<Card> cardsInDeck = new List<Card>(); // list of cards represented by each index;
+    public List<Card> cardsInSwords = new List<Card>(); // list of cards in sword group
+    public List<Card> cardsInBows = new List<Card>(); // list of cards in bow group
+    public List<Card> cardsInCatapultes = new List<Card>(); // list of cards in catapulte group
     public GameObject cardGameObject;
 
     public float startX = -6.53f;
@@ -38,9 +41,47 @@ public class Deck : MonoBehaviour
 
     public IEnumerable<Card> getCards()
     {
-        foreach(Card i in cardsInDeck)
+        foreach(Card c in cardsInDeck)
         {
-            yield return i;
+            yield return c;
+        }
+    }
+
+    public IEnumerable<Card> getSwordCards()
+    {
+        foreach(Card c in cardsInSwords)
+        {
+            yield return c;
+        }
+    }
+
+    public IEnumerable<Card> getBowCards()
+    {
+        foreach (Card c in cardsInBows)
+        {
+            yield return c;
+        }
+    }
+
+    public IEnumerable<Card> getCatapultCards()
+    {
+        foreach (Card c in cardsInCatapultes)
+        {
+            yield return c;
+        }
+    }
+
+    public void disactiveAllInDeck()
+    {
+        foreach (Card c in getCards())
+        {
+            //Debug.Log(c.getIndex() + " : " + c.isActive());
+
+            if (c.isActive())
+            {
+                c.setActive(false);
+                c.transform.position += new Vector3(0, -0.2f, 0);
+            }
         }
     }
 

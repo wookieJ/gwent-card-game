@@ -6,6 +6,8 @@ public class Areas : MonoBehaviour {
     BoxCollider [] colliders;
     BoxCollider deckCollider;
     BoxCollider swordCollider;
+    BoxCollider bowCollider;
+    BoxCollider catapultCollider;
 
     void Awake()
     {
@@ -13,6 +15,8 @@ public class Areas : MonoBehaviour {
         
         deckCollider = colliders[(int)Colliders.DECK];
         swordCollider = colliders[(int)Colliders.SWORD];
+        bowCollider = colliders[(int)Colliders.BOW];
+        catapultCollider = colliders[(int)Colliders.CATAPULT];
     }
 
     public Bounds getDeckColliderBounds()
@@ -25,5 +29,15 @@ public class Areas : MonoBehaviour {
         return swordCollider.bounds;
     }
 
-    private enum Colliders { DECK, SWORD };
+    public Bounds getBowColliderBounds()
+    {
+        return bowCollider.bounds;
+    }
+
+    public Bounds getCatapultColliderBounds()
+    {
+        return catapultCollider.bounds;
+    }
+
+    private enum Colliders { DECK, SWORD, BOW, CATAPULT };
 }

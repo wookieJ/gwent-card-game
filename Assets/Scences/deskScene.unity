@@ -261,7 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08509ec776dcba4dbab57803a0ff1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areas: {fileID: 2140408976}
   deckObject: {fileID: 1226197645}
   deskObject: {fileID: 1790994293}
   areasObject: {fileID: 2140408972}
@@ -662,6 +661,8 @@ GameObject:
   - component: {fileID: 2140408974}
   - component: {fileID: 2140408973}
   - component: {fileID: 2140408976}
+  - component: {fileID: 2140408978}
+  - component: {fileID: 2140408977}
   m_Layer: 0
   m_Name: Areas
   m_TagString: Untagged
@@ -717,3 +718,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270d03b59357fca4c84cfc735ee0b1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2140408977
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2140408972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.98, y: 1.51, z: 1}
+  m_Center: {x: 0, y: -4.19, z: 0}
+--- !u!65 &2140408978
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2140408972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.98, y: 1.51, z: 1}
+  m_Center: {x: 0, y: -2.54, z: 0}
