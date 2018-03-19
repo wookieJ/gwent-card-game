@@ -7,37 +7,65 @@ public class Areas : MonoBehaviour {
     BoxCollider deckCollider;
     BoxCollider swordCollider;
     BoxCollider bowCollider;
-    BoxCollider catapultCollider;
+    BoxCollider trebuchetCollider;
 
     void Awake()
     {
         colliders = GetComponents<BoxCollider>();
         
-        deckCollider = colliders[(int)Colliders.DECK];
-        swordCollider = colliders[(int)Colliders.SWORD];
-        bowCollider = colliders[(int)Colliders.BOW];
-        catapultCollider = colliders[(int)Colliders.CATAPULT];
+        deckCollider = colliders[(int)CardGroup.DECK];
+        swordCollider = colliders[(int)CardGroup.SWORD];
+        bowCollider = colliders[(int)CardGroup.BOW];
+        trebuchetCollider = colliders[(int)CardGroup.TREBUCHET];
     }
 
+    /// <summary>
+    /// Get player deck's collision bounds
+    /// </summary>
+    /// <returns>Deck's collision bounds</returns>
     public Bounds getDeckColliderBounds()
     {
         return deckCollider.bounds;
     }
 
+    /// <summary>
+    /// Get sword group collision bounds
+    /// </summary>
+    /// <returns>Sword group collision bounds</returns>
     public Bounds getSwordColliderBounds()
     {
         return swordCollider.bounds;
     }
 
+    /// <summary>
+    /// Get bow group collision bounds
+    /// </summary>
+    /// <returns>Bow group collision bounds</returns>
     public Bounds getBowColliderBounds()
     {
         return bowCollider.bounds;
     }
 
-    public Bounds getCatapultColliderBounds()
+    /// <summary>
+    /// Get trebuchet group collision bounds
+    /// </summary>
+    /// <returns>Trebuchet group bounds</returns>
+    public Bounds getTrebuchetColliderBounds()
     {
-        return catapultCollider.bounds;
+        return trebuchetCollider.bounds;
     }
 
-    private enum Colliders { DECK, SWORD, BOW, CATAPULT };
+    /// <summary>
+    /// Get deck collider center vector
+    /// </summary>
+    /// <returns>deck collider center vector</returns>
+    public Vector3 getDeckCenterVector()
+    {
+        return deckCollider.center;
+    }
+
+    /// <summary>
+    /// Defined typed of card groups
+    /// </summary>
+    private enum CardGroup { DECK, SWORD, BOW, TREBUCHET };
 }

@@ -68,6 +68,7 @@ public class Game : MonoBehaviour
                     activeCard.transform.position = new Vector3(-2.52f, -0.95f, 0);
                     // TODO - sprawzić czy activeCard ma wpływ na karty w decku
                     activeCard.setActive(false);
+                    deck.addCardToSwords(activeCard);
                     deck.disactiveAllInDeck();
                 }
             }
@@ -78,16 +79,19 @@ public class Game : MonoBehaviour
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
                     activeCard.transform.position = new Vector3(-2.52f, -2.68f, 0);
                     activeCard.setActive(false);
+                    deck.addCardToBows(activeCard);
                     deck.disactiveAllInDeck();
                 }
             }
-            else if (areas.getCatapultColliderBounds().Contains(mouseRelativePosition))
+            else if (areas.getTrebuchetColliderBounds().Contains(mouseRelativePosition))
             {
                 if (state == (int)Status.ACTIVE_CARD)
                 {
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
                     activeCard.transform.position = new Vector3(-2.52f, -4.38f, 0);
                     activeCard.setActive(false);
+                    // TODO - is it enough to have controll under card in list? Position controll
+                    deck.addCardToTrebuchets(activeCard);
                     deck.disactiveAllInDeck();
                 }
             }
