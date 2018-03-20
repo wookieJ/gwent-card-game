@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\Areas.cs" />
+     <Compile Include="Assets\scripts\ButtonContinue.cs" />
      <Compile Include="Assets\scripts\Card.cs" />
      <Compile Include="Assets\scripts\CardModel.cs" />
      <Compile Include="Assets\scripts\Deck.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class Game : MonoBehaviour
     private Desk desk;
     private Areas areas;
     public Card activeCard;
-    public int activePlayerNumber;
+    public static int activePlayerNumber;
 
     public GameObject deckObject;
     public GameObject deskObject;
@@ -28,7 +29,10 @@ public class Game : MonoBehaviour
     public Text score1Text;
     public Text score2Text;
 
-    private int state = 0;
+    public GameObject buttonObject;
+    public Button button;
+
+    private static int state = 0;
 
     void Awake()
     {
@@ -40,36 +44,26 @@ public class Game : MonoBehaviour
         score1Text = score1Object.GetComponent<Text>();
         score2Text = score2Object.GetComponent<Text>();
 
+        button = buttonObject.GetComponent<Button>();
+
         player1 = player1Object.GetComponent<Player>();
         player2 = player2Object.GetComponent<Player>();
 
         activePlayerNumber = (int)PlayerNumber.PLAYER1;
     }    
 
-    void OnGUI()
+    void Start()
     {
-        GUIStyle buttonStyle = new GUIStyle("button");
-        buttonStyle.fontSize = 45;
-
-        if (GUI.Button(new Rect(55,30,330,120), "Zbuduj talię", buttonStyle))
-        {
-            if (activeDeck.cardsInDeck.Count == 0 && activeDeck.cardsInSwords.Count == 0 && activeDeck.cardsInBows.Count == 0 && activeDeck.cardsInTrebuchets.Count == 0)
-            {
-                player1.getDeck().buildDeck(12);
-                player2.getDeck().buildDeck(10);
-                player2.setDeckVisibility(false);
-                activeDeck = player1.getDeck();
-            }
-        }
-        if (GUI.Button(new Rect(55, 180, 330, 120), "Zmień gracza", buttonStyle))
-        {
-            switchPlayer();
-        }
+        player1.getDeck().buildDeck(11);
+        player2.getDeck().buildDeck(11);
+        player2.setDeckVisibility(false);
+        activeDeck = player1.getDeck();
     }
 
     private enum Status{
         FREE,
-        ACTIVE_CARD
+        ACTIVE_CARD,
+        BLOCKED
     };
 
     void Update()
@@ -77,7 +71,7 @@ public class Game : MonoBehaviour
         // vector of actual mouse position
         Vector3 mouseRelativePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseRelativePosition.z = -0.1f;
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && state != ((int)Status.BLOCKED))
         {
             // if we click on deck collision
             if (areas.getDeckColliderBounds().Contains(mouseRelativePosition) && activeDeck.cardsInDeck.Count > 0)
@@ -90,7 +84,7 @@ public class Game : MonoBehaviour
                         activeDeck.disactiveAllInDeck();
                         activeCard = c;
                         c.setActive(true);
-                        activeCard.transform.position += new Vector3(0, 0.2f, 0);
+                        activeCard.transform.position += new Vector3(0, 0.15f, 0);
                         state = (int)Status.ACTIVE_CARD;
                     }
                 }
@@ -106,6 +100,7 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
+                        switchPlayer();
                     }
                 }
             }
@@ -119,6 +114,7 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
+                        switchPlayer();
                     }
                 }
             }
@@ -133,6 +129,7 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
+                        switchPlayer();
                     }
                 }
             }
@@ -187,18 +184,21 @@ public class Game : MonoBehaviour
     /// </summary>
     private void switchPlayer()
     {
-        //desk.flipDesk();
-        player1.getDeck().flipGroupCards();
-        player2.getDeck().flipGroupCards();
-        Vector3 tempVector = score1Text.transform.position;
-        score1Text.transform.position = score2Text.transform.position;
-        score2Text.transform.position = tempVector;
+        state = (int)Status.BLOCKED;
+        StartCoroutine(Wait(1));
+    }
+
+    IEnumerator Wait(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        
+        button.transform.position = new Vector3(0, 0, -1f);
 
         if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
         {
             this.activeDeck = player2.getDeck();
             player1.setDeckVisibility(false);
-            player2.setDeckVisibility(true);            
+            player2.setDeckVisibility(true);
             activePlayerNumber = (int)PlayerNumber.PLAYER2;
         }
         else if (activePlayerNumber == (int)PlayerNumber.PLAYER2)
@@ -208,7 +208,15 @@ public class Game : MonoBehaviour
             player2.setDeckVisibility(false);
             activePlayerNumber = (int)PlayerNumber.PLAYER1;
         }
-        
+
+        button.GetComponentInChildren<Text>().text = "Player " + activePlayerNumber + ",\nDotknij aby kontynuować";
         playerNameText.text = "Player " + activePlayerNumber.ToString();
+        player1.getDeck().flipGroupCards();
+        player2.getDeck().flipGroupCards();
+        Vector3 tempVector = score1Text.transform.position;
+        score1Text.transform.position = score2Text.transform.position;
+        score2Text.transform.position = tempVector;
+
+        state = (int)Status.FREE;
     }
 }

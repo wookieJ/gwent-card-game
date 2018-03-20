@@ -109,7 +109,7 @@ public class Card : MonoBehaviour
     /// <param name="index">New card's front image</param>
     public void setFront(int index)
     {
-        spriteRenderer.sprite = cardModel.getFront(index);
+        spriteRenderer.sprite = cardModel.getSmallFront(index);
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public class Card : MonoBehaviour
     /// </summary>
     public void mirrorTransform()
     {
-        transform.position = new Vector3(transform.position.x * -1 - 0.25f, transform.position.y * -1 - 0.22f, transform.position.z);
+        transform.position = new Vector3(transform.position.x * -1 + 4.39f, transform.position.y * -1 + 1.55f, transform.position.z);
     }
     
     void Awake()
@@ -150,6 +150,6 @@ public class Card : MonoBehaviour
         cardModel = cardModelGameObject.GetComponent<CardModel>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         cardColider = GetComponent<BoxCollider2D>();
-        cardColider.size = new Vector2(1f, 1.57f);
+        cardColider.size = new Vector2(1f, 1.45f);
     }
 }

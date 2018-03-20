@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scences/menuScene.unity
     guid: 89039bb83bb01794388e1b0539c04cb3
+  - enabled: 1
+    path: Assets/Scences/showDeck.unity
+    guid: 9052d86ae6891074f9489ea4c9c181ab

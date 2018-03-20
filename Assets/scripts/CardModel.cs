@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class CardModel : MonoBehaviour
 {
-    public Sprite[] fronts;
+    public Sprite[] smallFronts;
+    public Sprite[] bigFronts;
     public string[] names;
     public int[] powers;
 
-    public Sprite getFront(int index)
+    public Sprite getSmallFront(int index)
     {
-        return fronts[index];
+        return smallFronts[index];
+    }
+
+    public Sprite getBigFront(int index)
+    {
+        return bigFronts[index];
     }
 
     public string getName(int index)

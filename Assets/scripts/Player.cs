@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         float value = -10;
 
         if (visibility == true)
-            value = -6.27f;
+            value = -5.35f;
                 
         foreach (Card card in deck.getCards())
         {

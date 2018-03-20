@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    Card baseCard;
+    public Card baseCard;
     public List<Card> cardsInDeck = new List<Card>(); // list of cards represented by each index;
     public List<Card> cardsInSwords = new List<Card>(); // list of cards in sword group
     public List<Card> cardsInBows = new List<Card>(); // list of cards in bow group
@@ -17,8 +17,8 @@ public class Deck : MonoBehaviour
     public float startZ = -0.1f;
     public float stepX = 1.05f;
 
-    private static int FRONTS_NUMBER = 8;
-    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 6;
+    private static int FRONTS_NUMBER = 2;
+    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 8;
 
     void Awake()
     {
@@ -36,7 +36,7 @@ public class Deck : MonoBehaviour
             int j = i;
 
             if (i > FRONTS_NUMBER - 1)
-                j = 1;
+                j = i % 2;
 
             Card clone = Instantiate(baseCard) as Card;
             clone.transform.position = new Vector3(startX + i * stepX, startY, startZ);
@@ -88,7 +88,7 @@ public class Deck : MonoBehaviour
     {
         if(cardsInSwords.Count < MAX_NUMBER_OF_CARDS_IN_GROUP && cardsInDeck.Contains(card))
         {
-            Vector3 newVector = new Vector3(-2.5f + cardsInSwords.Count * 1.05f, -0.97f, -0.1f);
+            Vector3 newVector = new Vector3(-2.53f + cardsInSwords.Count * 1.05f, -0.19f, -0.1f);
             card.transform.position = newVector;
 
             cardsInSwords.Add(card);
@@ -109,7 +109,7 @@ public class Deck : MonoBehaviour
     {
         if (cardsInBows.Count < MAX_NUMBER_OF_CARDS_IN_GROUP && cardsInDeck.Contains(card))
         {
-            Vector3 newVector = new Vector3(-2.5f + cardsInBows.Count * 1.05f, -2.66f, -0.1f);
+            Vector3 newVector = new Vector3(-2.53f + cardsInBows.Count * 1.05f, -1.91f, -0.1f);
             card.transform.position = newVector;
 
             cardsInBows.Add(card);
@@ -130,7 +130,7 @@ public class Deck : MonoBehaviour
     {
         if (cardsInTrebuchets.Count < MAX_NUMBER_OF_CARDS_IN_GROUP && cardsInDeck.Contains(card))
         {
-            Vector3 newVector = new Vector3(-2.5f + cardsInTrebuchets.Count * 1.05f, -4.31f, -0.1f);
+            Vector3 newVector = new Vector3(-2.53f + cardsInTrebuchets.Count * 1.05f, -3.66f, -0.1f);
             card.transform.position = newVector;
 
             cardsInTrebuchets.Add(card);
@@ -191,17 +191,17 @@ public class Deck : MonoBehaviour
     {
         foreach(Card card in getSwordCards())
         {
-            card.flip();
+            //card.flip();
             card.mirrorTransform();
         }
         foreach (Card card in getBowCards())
         {
-            card.flip();
+            //card.flip();
             card.mirrorTransform();
         }
         foreach (Card card in getTrebuchetCards())
         {
-            card.flip();
+            //card.flip();
             card.mirrorTransform();
         }
     }
