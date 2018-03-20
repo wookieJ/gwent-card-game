@@ -32,6 +32,15 @@ public class Card : MonoBehaviour
     }
 
     /// <summary>
+    /// Power of card
+    /// </summary>
+    /// <returns>power of card</returns>
+    public int getPower()
+    {
+        return this.power;
+    }
+
+    /// <summary>
     /// Set power of card
     /// </summary>
     /// <param name="power">New card's power</param>
@@ -101,6 +110,15 @@ public class Card : MonoBehaviour
     public void setFront(int index)
     {
         spriteRenderer.sprite = cardModel.getFront(index);
+    }
+
+    /// <summary>
+    /// Get a cardModel object
+    /// </summary>
+    /// <returns>cardModel object</returns>
+    public CardModel getCardModel()
+    {
+        return this.cardModel;
     }
     
     void Awake()

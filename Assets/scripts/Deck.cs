@@ -40,7 +40,7 @@ public class Deck : MonoBehaviour
             Card clone = Instantiate(baseCard) as Card;
             clone.transform.position = new Vector3(startX + i * stepX, startY, startZ);
             clone.setFront(j);
-            clone.setPower(i);
+            clone.setPower(baseCard.getCardModel().getPower(j));
             clone.setIndex(i);
             cardsInDeck.Add(clone);
         }
@@ -87,6 +87,9 @@ public class Deck : MonoBehaviour
     {
         if(cardsInDeck.Contains(card))
         {
+            Vector3 newVector = new Vector3(-2.5f + cardsInSwords.Count * 1.05f, -0.97f, -0.1f);
+            card.transform.position = newVector;
+
             cardsInSwords.Add(card);
             return true;
             // TODO - should I remove deck from deck
@@ -105,6 +108,9 @@ public class Deck : MonoBehaviour
     {
         if (cardsInDeck.Contains(card))
         {
+            Vector3 newVector = new Vector3(-2.5f + cardsInBows.Count * 1.05f, -2.66f, -0.1f);
+            card.transform.position = newVector;
+
             cardsInBows.Add(card);
             return true;
             // TODO - should I remove deck from deck
@@ -123,6 +129,9 @@ public class Deck : MonoBehaviour
     {
         if (cardsInDeck.Contains(card))
         {
+            Vector3 newVector = new Vector3(-2.5f + cardsInTrebuchets.Count * 1.05f, -4.31f, -0.1f);
+            card.transform.position = newVector;
+
             cardsInTrebuchets.Add(card);
             return true;
             // TODO - should I remove deck from deck
@@ -130,30 +139,6 @@ public class Deck : MonoBehaviour
         }
 
         return false;
-    }
-
-    /// <summary>
-    /// Resolve new posiotion of each card in pointet group
-    /// </summary>
-    /// <param name="group">group of cards that we want to reorganize. Int value</param>
-    public void reorganizeGroup(int group)
-    {
-        if(group == (int)CardGroup.DECK)
-        {
-
-        }
-        else if (group == (int)CardGroup.SWORD)
-        {
-
-        }
-        else if (group == (int)CardGroup.BOW)
-        {
-
-        }
-        else if (group == (int)CardGroup.TREBUCHET)
-        {
-
-        }
     }
 
     /// <summary>
@@ -171,8 +156,23 @@ public class Deck : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Defined typed of card groups
-    /// </summary>
-    private enum CardGroup { DECK, SWORD, BOW, TREBUCHET };
+    public int getPowerSum()
+    {
+        int result = 0;
+
+        foreach (Card card in getSwordCards())
+        {
+            result += card.getPower();
+        }
+        foreach (Card card in getBowCards())
+        {
+            result += card.getPower();
+        }
+        foreach (Card card in getTrebuchetCards())
+        {
+            result += card.getPower();
+        }
+
+        return result;
+    }
 }

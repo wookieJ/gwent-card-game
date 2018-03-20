@@ -1,17 +1,25 @@
 fileFormatVersion: 2
-guid: bbdc7da417056f9479781646300d41a0
-timeCreated: 1520766737
+guid: 6ae101fadd3ce8e48ab8f4aa2138e3cb
+timeCreated: 1521544795
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: deck__0
-    21300002: deck__1
-    21300004: deck__2
-    21300006: deck__3
-    21300008: deck__4
-    21300010: deck__5
-    21300012: deck__6
-    21300014: deck__7
+    21300000: deck_ 1_0
+    21300002: deck_ 1_1
+    21300004: deck_ 1_2
+    21300006: deck_ 1_3
+    21300008: deck_ 1_4
+    21300010: deck_ 1_5
+    21300012: deck_ 1_6
+    21300014: deck_ 1_7
+    21300016: deck__0
+    21300018: deck__1
+    21300020: deck__2
+    21300022: deck__3
+    21300024: deck__4
+    21300026: deck__5
+    21300028: deck__6
+    21300030: deck__7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -54,7 +62,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 190
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -209,8 +217,16 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
-    outline: []
-    physicsShape: []
+    outline:
+    - - {x: -380, y: 305}
+      - {x: -380, y: -305}
+      - {x: 380, y: -305}
+      - {x: 380, y: 305}
+    physicsShape:
+    - - {x: -380, y: 305}
+      - {x: -380, y: -305}
+      - {x: 380, y: -305}
+      - {x: 380, y: 305}
   spritePackingTag: 
   userData: 
   assetBundleName: 

@@ -60,16 +60,18 @@ public class Game : MonoBehaviour
                     }
                 }
             }
+            // click on card sword group
             else if (areas.getSwordColliderBounds().Contains(mouseRelativePosition))
             {
                 if (state == (int)Status.ACTIVE_CARD)
                 {
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
-                    activeCard.transform.position = new Vector3(-2.52f, -0.95f, 0);
                     // TODO - sprawzić czy activeCard ma wpływ na karty w decku
                     activeCard.setActive(false);
-                    deck.addCardToSwords(activeCard);
+                    if(deck.cardsInSwords.Count < 6)
+                        deck.addCardToSwords(activeCard);
                     deck.disactiveAllInDeck();
+                    state = (int)Status.FREE;
                 }
             }
             else if (areas.getBowColliderBounds().Contains(mouseRelativePosition))
@@ -77,10 +79,11 @@ public class Game : MonoBehaviour
                 if (state == (int)Status.ACTIVE_CARD)
                 {
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
-                    activeCard.transform.position = new Vector3(-2.52f, -2.68f, 0);
                     activeCard.setActive(false);
-                    deck.addCardToBows(activeCard);
+                    if (deck.cardsInBows.Count < 6)
+                        deck.addCardToBows(activeCard);
                     deck.disactiveAllInDeck();
+                    state = (int)Status.FREE;
                 }
             }
             else if (areas.getTrebuchetColliderBounds().Contains(mouseRelativePosition))
@@ -88,11 +91,12 @@ public class Game : MonoBehaviour
                 if (state == (int)Status.ACTIVE_CARD)
                 {
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
-                    activeCard.transform.position = new Vector3(-2.52f, -4.38f, 0);
                     activeCard.setActive(false);
                     // TODO - is it enough to have controll under card in list? Position controll
-                    deck.addCardToTrebuchets(activeCard);
+                    if (deck.cardsInTrebuchets.Count < 6)
+                        deck.addCardToTrebuchets(activeCard);
                     deck.disactiveAllInDeck();
+                    state = (int)Status.FREE;
                 }
             }
             else
@@ -103,4 +107,36 @@ public class Game : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Resolve new posiotion of each card in pointet group
+    /// </summary>
+    /// <param name="group">group of cards that we want to reorganize. Int value</param>
+    public void reorganizeGroup(int group)
+    {
+        if (group == (int)CardGroup.DECK)
+        {
+            // odd number of cards
+            /*if (deck.cardsInDeck.Count % 2 == 1)
+            {
+                deck.cardsInDeck[0].transform.position = areas.getDeckCenterVector();
+            }*/
+        }
+        else if (group == (int)CardGroup.SWORD)
+        {
+        }
+        else if (group == (int)CardGroup.BOW)
+        {
+
+        }
+        else if (group == (int)CardGroup.TREBUCHET)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// Defined typed of card groups
+    /// </summary>
+    private enum CardGroup { DECK, SWORD, BOW, TREBUCHET };
 }
