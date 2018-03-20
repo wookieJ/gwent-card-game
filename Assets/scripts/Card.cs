@@ -120,6 +120,30 @@ public class Card : MonoBehaviour
     {
         return this.cardModel;
     }
+
+    /// <summary>
+    /// Flip card
+    /// </summary>
+    public void flip()
+    {
+        if (spriteRenderer.flipX == true)
+            spriteRenderer.flipX = false;
+        else
+            spriteRenderer.flipX = true;
+
+        if (spriteRenderer.flipY == true)
+            spriteRenderer.flipY = false;
+        else
+            spriteRenderer.flipY = true;
+    }
+
+    /// <summary>
+    /// Mirror transformation around (0,0,0) point
+    /// </summary>
+    public void mirrorTransform()
+    {
+        transform.position = new Vector3(transform.position.x * -1, transform.position.y * -1, transform.position.z);
+    }
     
     void Awake()
     {

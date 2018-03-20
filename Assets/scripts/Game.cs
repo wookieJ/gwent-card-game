@@ -1,33 +1,58 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    private Deck deck;
+    public Deck activeDeck;
     private Desk desk;
     private Areas areas;
-    private Card activeCard;
+    public Card activeCard;
+    public int activePlayerNumber;
 
     public GameObject deckObject;
     public GameObject deskObject;
     public GameObject areasObject;
 
+    public GameObject textObject;
+    public Text _MyText;
+
+    public GameObject player1Object;
+    public GameObject player2Object;
+    public Player player1;
+    public Player player2;
+
     private int state = 0;
 
     void Awake()
     {
-        deck = deckObject.GetComponent<Deck>();
+        activeDeck = deckObject.GetComponent<Deck>();
         desk = deskObject.GetComponent<Desk>();
         areas = areasObject.GetComponent<Areas>();
+        _MyText = textObject.GetComponent<Text>();
+
+        player1 = player1Object.GetComponent<Player>();
+        player2 = player2Object.GetComponent<Player>();
+
+        activePlayerNumber = (int)PlayerNumber.PLAYER1;
     }    
 
     void OnGUI()
     {
         if(GUI.Button(new Rect(10,10,100,40), "Zbuduj talię"))
         {
-            if(deck.cardsInDeck.Capacity == 0)
-                deck.buildDeck(12);
+            if (activeDeck.cardsInDeck.Count == 0 && activeDeck.cardsInSwords.Count == 0 && activeDeck.cardsInBows.Count == 0 && activeDeck.cardsInTrebuchets.Count == 0)
+            {
+                player1.getDeck().buildDeck(12);
+                player2.getDeck().buildDeck(10);
+                player2.setDeckVisibility(false);
+                activeDeck = player1.getDeck();
+            }
+        }
+        if (GUI.Button(new Rect(10, 50, 100, 40), "Zmień gracza"))
+        {
+            switchPlayer();
         }
     }
 
@@ -41,18 +66,17 @@ public class Game : MonoBehaviour
         // vector of actual mouse position
         Vector3 mouseRelativePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseRelativePosition.z = -0.1f;
-
         if (Input.GetMouseButtonDown(0))
         {
             // if we click on deck collision
-            if (areas.getDeckColliderBounds().Contains(mouseRelativePosition) && deck.cardsInDeck.Count > 0)
+            if (areas.getDeckColliderBounds().Contains(mouseRelativePosition) && activeDeck.cardsInDeck.Count > 0)
             {
-                foreach (Card c in deck.getCards())
+                foreach (Card c in activeDeck.getCards())
                 {
                     // if we click on card
                     if (c.getBounds().Contains(mouseRelativePosition))
                     {
-                        deck.disactiveAllInDeck();
+                        activeDeck.disactiveAllInDeck();
                         activeCard = c;
                         c.setActive(true);
                         activeCard.transform.position += new Vector3(0, 0.2f, 0);
@@ -66,12 +90,12 @@ public class Game : MonoBehaviour
                 if (state == (int)Status.ACTIVE_CARD)
                 {
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
-                    // TODO - sprawzić czy activeCard ma wpływ na karty w decku
                     activeCard.setActive(false);
-                    if(deck.cardsInSwords.Count < 6)
-                        deck.addCardToSwords(activeCard);
-                    deck.disactiveAllInDeck();
-                    state = (int)Status.FREE;
+                    if (activeDeck.addCardToSwords(activeCard) == true)
+                    {
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                    }
                 }
             }
             else if (areas.getBowColliderBounds().Contains(mouseRelativePosition))
@@ -80,10 +104,11 @@ public class Game : MonoBehaviour
                 {
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
                     activeCard.setActive(false);
-                    if (deck.cardsInBows.Count < 6)
-                        deck.addCardToBows(activeCard);
-                    deck.disactiveAllInDeck();
-                    state = (int)Status.FREE;
+                    if (activeDeck.addCardToBows(activeCard) == true)
+                    {
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                    }
                 }
             }
             else if (areas.getTrebuchetColliderBounds().Contains(mouseRelativePosition))
@@ -93,15 +118,16 @@ public class Game : MonoBehaviour
                     // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
                     activeCard.setActive(false);
                     // TODO - is it enough to have controll under card in list? Position controll
-                    if (deck.cardsInTrebuchets.Count < 6)
-                        deck.addCardToTrebuchets(activeCard);
-                    deck.disactiveAllInDeck();
-                    state = (int)Status.FREE;
+                    if (activeDeck.addCardToTrebuchets(activeCard) == true)
+                    {
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                    }
                 }
             }
             else
             {
-                deck.disactiveAllInDeck();
+                activeDeck.disactiveAllInDeck();
                 activeCard = null;
                 state = (int)Status.FREE;
             }
@@ -136,7 +162,39 @@ public class Game : MonoBehaviour
     }
 
     /// <summary>
-    /// Defined typed of card groups
+    /// Defined type of card groups
     /// </summary>
     private enum CardGroup { DECK, SWORD, BOW, TREBUCHET };
+
+    /// <summary>
+    /// Defined name of players
+    /// </summary>
+    private enum PlayerNumber { PLAYER1 = 1, PLAYER2 };
+
+    /// <summary>
+    /// Switch player - update active deck
+    /// </summary>
+    private void switchPlayer()
+    {
+        desk.flipDesk();
+        player1.getDeck().flipGroupCards();
+        player2.getDeck().flipGroupCards();
+
+        if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
+        {
+            this.activeDeck = player2.getDeck();
+            player1.setDeckVisibility(false);
+            player2.setDeckVisibility(true);            
+            activePlayerNumber = (int)PlayerNumber.PLAYER2;
+        }
+        else if (activePlayerNumber == (int)PlayerNumber.PLAYER2)
+        {
+            this.activeDeck = player1.getDeck();
+            player1.setDeckVisibility(true);
+            player2.setDeckVisibility(false);
+            activePlayerNumber = (int)PlayerNumber.PLAYER1;
+        }
+        
+        _MyText.text = "Player " + activePlayerNumber.ToString();
+    }
 }

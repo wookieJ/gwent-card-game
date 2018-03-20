@@ -18,6 +18,7 @@ public class Deck : MonoBehaviour
     public float stepX = 1.05f;
 
     private static int FRONTS_NUMBER = 8;
+    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 6;
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class Deck : MonoBehaviour
     /// <param name="numberOfCards">how many cards have to be added to player's deck</param>
     public void buildDeck(int numberOfCards)
     {
-        for (int i = 0; i <= numberOfCards; i++)
+        for (int i = 0; i < numberOfCards; i++)
         {
             int j = i;
 
@@ -85,15 +86,15 @@ public class Deck : MonoBehaviour
     /// <returns>true if operation succeeded</returns>
     public bool addCardToSwords(Card card)
     {
-        if(cardsInDeck.Contains(card))
+        if(cardsInSwords.Count < MAX_NUMBER_OF_CARDS_IN_GROUP && cardsInDeck.Contains(card))
         {
             Vector3 newVector = new Vector3(-2.5f + cardsInSwords.Count * 1.05f, -0.97f, -0.1f);
             card.transform.position = newVector;
 
             cardsInSwords.Add(card);
-            return true;
             // TODO - should I remove deck from deck
-            //cardsInDeck.Remove(card);
+            cardsInDeck.Remove(card);
+            return true;
         }
 
         return false;
@@ -106,15 +107,15 @@ public class Deck : MonoBehaviour
     /// <returns>true if operation succeeded</returns>
     public bool addCardToBows(Card card)
     {
-        if (cardsInDeck.Contains(card))
+        if (cardsInBows.Count < MAX_NUMBER_OF_CARDS_IN_GROUP && cardsInDeck.Contains(card))
         {
             Vector3 newVector = new Vector3(-2.5f + cardsInBows.Count * 1.05f, -2.66f, -0.1f);
             card.transform.position = newVector;
 
             cardsInBows.Add(card);
-            return true;
             // TODO - should I remove deck from deck
-            //cardsInDeck.Remove(card);
+            cardsInDeck.Remove(card);
+            return true;
         }
 
         return false;
@@ -127,15 +128,15 @@ public class Deck : MonoBehaviour
     /// <returns>true if operation succeeded</returns>
     public bool addCardToTrebuchets(Card card)
     {
-        if (cardsInDeck.Contains(card))
+        if (cardsInTrebuchets.Count < MAX_NUMBER_OF_CARDS_IN_GROUP && cardsInDeck.Contains(card))
         {
             Vector3 newVector = new Vector3(-2.5f + cardsInTrebuchets.Count * 1.05f, -4.31f, -0.1f);
             card.transform.position = newVector;
 
             cardsInTrebuchets.Add(card);
-            return true;
             // TODO - should I remove deck from deck
-            //cardsInDeck.Remove(card);
+            cardsInDeck.Remove(card);
+            return true;
         }
 
         return false;
@@ -146,16 +147,23 @@ public class Deck : MonoBehaviour
     /// </summary>
     public void disactiveAllInDeck()
     {
-        foreach (Card c in getCards())
+        if (cardsInDeck.Count > 0)
         {
-            if (c.isActive())
+            foreach (Card c in getCards())
             {
-                c.setActive(false);
-                c.transform.position += new Vector3(0, -0.2f, 0);
+                if (c.isActive())
+                {
+                    c.setActive(false);
+                    c.transform.position += new Vector3(0, -0.2f, 0);
+                }
             }
         }
     }
 
+    /// <summary>
+    /// Get sum of the all card's powers
+    /// </summary>
+    /// <returns>sum of powers of all cards in groups</returns>
     public int getPowerSum()
     {
         int result = 0;
@@ -174,5 +182,27 @@ public class Deck : MonoBehaviour
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Flip player cards
+    /// </summary>
+    public void flipGroupCards()
+    {
+        foreach(Card card in getSwordCards())
+        {
+            card.flip();
+            card.mirrorTransform();
+        }
+        foreach (Card card in getBowCards())
+        {
+            card.flip();
+            card.mirrorTransform();
+        }
+        foreach (Card card in getTrebuchetCards())
+        {
+            card.flip();
+            card.mirrorTransform();
+        }
     }
 }
