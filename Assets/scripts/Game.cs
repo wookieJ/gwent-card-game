@@ -15,13 +15,18 @@ public class Game : MonoBehaviour
     public GameObject deskObject;
     public GameObject areasObject;
 
-    public GameObject textObject;
-    public Text _MyText;
+    public GameObject playerNameTextObject;
+    public Text playerNameText;
 
     public GameObject player1Object;
     public GameObject player2Object;
     public Player player1;
     public Player player2;
+
+    public GameObject score1Object;
+    public GameObject score2Object;
+    public Text score1Text;
+    public Text score2Text;
 
     private int state = 0;
 
@@ -30,7 +35,10 @@ public class Game : MonoBehaviour
         activeDeck = deckObject.GetComponent<Deck>();
         desk = deskObject.GetComponent<Desk>();
         areas = areasObject.GetComponent<Areas>();
-        _MyText = textObject.GetComponent<Text>();
+
+        playerNameText = playerNameTextObject.GetComponent<Text>();
+        score1Text = score1Object.GetComponent<Text>();
+        score2Text = score2Object.GetComponent<Text>();
 
         player1 = player1Object.GetComponent<Player>();
         player2 = player2Object.GetComponent<Player>();
@@ -40,7 +48,10 @@ public class Game : MonoBehaviour
 
     void OnGUI()
     {
-        if(GUI.Button(new Rect(10,10,100,40), "Zbuduj talię"))
+        GUIStyle buttonStyle = new GUIStyle("button");
+        buttonStyle.fontSize = 45;
+
+        if (GUI.Button(new Rect(55,30,330,120), "Zbuduj talię", buttonStyle))
         {
             if (activeDeck.cardsInDeck.Count == 0 && activeDeck.cardsInSwords.Count == 0 && activeDeck.cardsInBows.Count == 0 && activeDeck.cardsInTrebuchets.Count == 0)
             {
@@ -50,7 +61,7 @@ public class Game : MonoBehaviour
                 activeDeck = player1.getDeck();
             }
         }
-        if (GUI.Button(new Rect(10, 50, 100, 40), "Zmień gracza"))
+        if (GUI.Button(new Rect(55, 180, 330, 120), "Zmień gracza", buttonStyle))
         {
             switchPlayer();
         }
@@ -176,9 +187,12 @@ public class Game : MonoBehaviour
     /// </summary>
     private void switchPlayer()
     {
-        desk.flipDesk();
+        //desk.flipDesk();
         player1.getDeck().flipGroupCards();
         player2.getDeck().flipGroupCards();
+        Vector3 tempVector = score1Text.transform.position;
+        score1Text.transform.position = score2Text.transform.position;
+        score2Text.transform.position = tempVector;
 
         if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
         {
@@ -195,6 +209,6 @@ public class Game : MonoBehaviour
             activePlayerNumber = (int)PlayerNumber.PLAYER1;
         }
         
-        _MyText.text = "Player " + activePlayerNumber.ToString();
+        playerNameText.text = "Player " + activePlayerNumber.ToString();
     }
 }

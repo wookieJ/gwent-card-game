@@ -142,7 +142,7 @@ public class Card : MonoBehaviour
     /// </summary>
     public void mirrorTransform()
     {
-        transform.position = new Vector3(transform.position.x * -1, transform.position.y * -1, transform.position.z);
+        transform.position = new Vector3(transform.position.x * -1 - 0.25f, transform.position.y * -1 - 0.22f, transform.position.z);
     }
     
     void Awake()

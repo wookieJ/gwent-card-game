@@ -113,6 +113,94 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &20029207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 20029208}
+  - component: {fileID: 20029211}
+  - component: {fileID: 20029210}
+  - component: {fileID: 20029209}
+  m_Layer: 5
+  m_Name: Score2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &20029208
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 20029207}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 365465035}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 427.5, y: 262.4}
+  m_SizeDelta: {x: 67.7, y: 37.9}
+  m_Pivot: {x: 0.41774788, y: 0.5}
+--- !u!114 &20029209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 20029207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9be70dbe8a42b449b18ad60fe63ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MyText: {fileID: 20029210}
+  deckObject: {fileID: 704135704}
+--- !u!114 &20029210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 20029207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 18
+    m_FontStyle: 1
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: XX
+--- !u!222 &20029211
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 20029207}
 --- !u!1 &153761344
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +213,7 @@ GameObject:
   - component: {fileID: 153761347}
   - component: {fileID: 153761346}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Score1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,16 +226,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 153761344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4750.51}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 365465035}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -269.8, y: -44}
-  m_SizeDelta: {x: 605, y: 236.5}
+  m_AnchoredPosition: {x: -451.3, y: -75.4}
+  m_SizeDelta: {x: 67.7, y: 37.9}
   m_Pivot: {x: 0.41774788, y: 0.5}
 --- !u!114 &153761346
 MonoBehaviour:
@@ -183,7 +271,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 180
+    m_FontSize: 18
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
@@ -225,11 +313,11 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 175073932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4602.71}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 365465035}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -293,16 +381,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 235951331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4750.8994}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1.0001985}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 365465035}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -376.77, y: 193.82}
-  m_SizeDelta: {x: 1051, y: 607}
+  m_AnchoredPosition: {x: -781.1, y: 19.4}
+  m_SizeDelta: {x: 258.1, y: 64.2}
   m_Pivot: {x: 0.41774788, y: 0.5}
 --- !u!114 &235951334
 MonoBehaviour:
@@ -328,7 +416,7 @@ MonoBehaviour:
     m_FontSize: 180
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 100
+    m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -408,7 +496,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1900725529}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -429,6 +517,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 153761345}
+  - {fileID: 20029208}
   - {fileID: 235951332}
   - {fileID: 175073933}
   m_Father: {fileID: 0}
@@ -684,16 +773,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08509ec776dcba4dbab57803a0ff1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeDeck: {fileID: 0}
+  activeCard: {fileID: 0}
   activePlayerNumber: 0
   deckObject: {fileID: 1226197645}
   deskObject: {fileID: 1790994293}
   areasObject: {fileID: 2140408972}
-  textObject: {fileID: 235951331}
-  _MyText: {fileID: 0}
+  playerNameTextObject: {fileID: 235951331}
+  playerNameText: {fileID: 0}
   player1Object: {fileID: 958250538}
   player2Object: {fileID: 1882382897}
   player1: {fileID: 0}
   player2: {fileID: 0}
+  score1Object: {fileID: 153761344}
+  score2Object: {fileID: 20029207}
+  score1Text: {fileID: 0}
+  score2Text: {fileID: 0}
 --- !u!1 &1768926678
 GameObject:
   m_ObjectHideFlags: 0

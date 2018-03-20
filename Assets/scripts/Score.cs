@@ -9,7 +9,6 @@ public class Score : MonoBehaviour {
 
     public Text _MyText;
     public GameObject deckObject;
-    
 
     void Awake()
     {
