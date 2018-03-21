@@ -16,6 +16,8 @@ public class Game : MonoBehaviour
     public GameObject deskObject;
     public GameObject areasObject;
 
+    public Card activeShowingCard;
+
     public GameObject playerNameTextObject;
     public Text playerNameText;
 
@@ -58,6 +60,12 @@ public class Game : MonoBehaviour
         player2.getDeck().buildDeck(11);
         player2.setDeckVisibility(false);
         activeDeck = player1.getDeck();
+        
+        if(player1.getDeck().cardsInDeck.Count > 0)
+            activeCard = player1.getDeck().cardsInDeck[0];
+        activeShowingCard = Instantiate(activeCard) as Card;
+        activeShowingCard.transform.position = new Vector3(8.96f, 0, -0.1f);
+        showActiveCard(false);
     }
 
     private enum Status{
@@ -84,6 +92,9 @@ public class Game : MonoBehaviour
                         activeDeck.disactiveAllInDeck();
                         activeCard = c;
                         c.setActive(true);
+
+                        showActiveCard(true);
+
                         activeCard.transform.position += new Vector3(0, 0.15f, 0);
                         state = (int)Status.ACTIVE_CARD;
                     }
@@ -94,7 +105,7 @@ public class Game : MonoBehaviour
             {
                 if (state == (int)Status.ACTIVE_CARD)
                 {
-                    // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
+                    // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
                     if (activeDeck.addCardToSwords(activeCard) == true)
                     {
@@ -108,7 +119,7 @@ public class Game : MonoBehaviour
             {
                 if (state == (int)Status.ACTIVE_CARD)
                 {
-                    // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
+                    // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
                     if (activeDeck.addCardToBows(activeCard) == true)
                     {
@@ -122,7 +133,7 @@ public class Game : MonoBehaviour
             {
                 if (state == (int)Status.ACTIVE_CARD)
                 {
-                    // TODO - dodawanie do listy z podziałem na grupy zasięgu (sword, bow, ...), na podstawie tego system rozmieszczania kart w grupie
+                    // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
                     // TODO - is it enough to have controll under card in list? Position controll
                     if (activeDeck.addCardToTrebuchets(activeCard) == true)
@@ -137,6 +148,7 @@ public class Game : MonoBehaviour
             {
                 activeDeck.disactiveAllInDeck();
                 activeCard = null;
+                showActiveCard(false);
                 state = (int)Status.FREE;
             }
         }
@@ -150,11 +162,6 @@ public class Game : MonoBehaviour
     {
         if (group == (int)CardGroup.DECK)
         {
-            // odd number of cards
-            /*if (deck.cardsInDeck.Count % 2 == 1)
-            {
-                deck.cardsInDeck[0].transform.position = areas.getDeckCenterVector();
-            }*/
         }
         else if (group == (int)CardGroup.SWORD)
         {
@@ -185,6 +192,7 @@ public class Game : MonoBehaviour
     private void switchPlayer()
     {
         state = (int)Status.BLOCKED;
+        showActiveCard(false);
         StartCoroutine(Wait(1));
     }
 
@@ -218,5 +226,14 @@ public class Game : MonoBehaviour
         score2Text.transform.position = tempVector;
 
         state = (int)Status.FREE;
+    }
+
+    private void showActiveCard(bool ifShow)
+    {
+        // TODO - usunąć operację modulo!
+        if(ifShow)
+            activeShowingCard.setBigFront(activeCard.getIndex() % 2 + 1);
+        else
+            activeShowingCard.setBigFront(0);
     }
 }

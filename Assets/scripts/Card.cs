@@ -113,6 +113,18 @@ public class Card : MonoBehaviour
     }
 
     /// <summary>
+    /// Set new card's front image from big cards set
+    /// </summary>
+    /// <param name="index">index of new big front image</param>
+    public void setBigFront(int index)
+    {
+        if (index == 0)
+            spriteRenderer.sprite = null;
+        else
+            spriteRenderer.sprite = cardModel.getBigFront(index - 1);
+    }
+
+    /// <summary>
     /// Get a cardModel object
     /// </summary>
     /// <returns>cardModel object</returns>

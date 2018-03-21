@@ -1044,6 +1044,7 @@ MonoBehaviour:
   deckObject: {fileID: 1226197645}
   deskObject: {fileID: 1790994293}
   areasObject: {fileID: 2140408972}
+  activeShowingCard: {fileID: 0}
   playerNameTextObject: {fileID: 235951331}
   playerNameText: {fileID: 0}
   player1Object: {fileID: 958250538}

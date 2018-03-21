@@ -154,7 +154,7 @@ public class Deck : MonoBehaviour
                 if (c.isActive())
                 {
                     c.setActive(false);
-                    c.transform.position += new Vector3(0, -0.2f, 0);
+                    c.transform.position += new Vector3(0, -0.15f, 0);
                 }
             }
         }
