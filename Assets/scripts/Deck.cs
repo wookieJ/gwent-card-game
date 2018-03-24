@@ -191,17 +191,17 @@ public class Deck : MonoBehaviour
     {
         foreach(Card card in getSwordCards())
         {
-            //card.flip();
+            card.flip();
             card.mirrorTransform();
         }
         foreach (Card card in getBowCards())
         {
-            //card.flip();
+            card.flip();
             card.mirrorTransform();
         }
         foreach (Card card in getTrebuchetCards())
         {
-            //card.flip();
+            card.flip();
             card.mirrorTransform();
         }
     }

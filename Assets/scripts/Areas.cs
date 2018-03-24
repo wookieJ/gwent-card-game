@@ -65,12 +65,30 @@ public class Areas : MonoBehaviour {
     }
 
     /// <summary>
-    /// Get deck collider center vector
+    /// Get sword group collider center vector
     /// </summary>
-    /// <returns>deck collider center vector</returns>
+    /// <returns>sworr group collider center vector</returns>
     public Vector3 getSwordsCenterVector()
     {
         return swordCollider.center;
+    }
+
+    /// <summary>
+    /// Get bow group collider center vector
+    /// </summary>
+    /// <returns>bow group collider center vector</returns>
+    public Vector3 getBowsCenterVector()
+    {
+        return bowCollider.center;
+    }
+
+    /// <summary>
+    /// Get trebuchet group collider center vector
+    /// </summary>
+    /// <returns>trebuchet group collider center vector</returns>
+    public Vector3 getTrebuchetsCenterVector()
+    {
+        return trebuchetCollider.center;
     }
 
     /// <summary>

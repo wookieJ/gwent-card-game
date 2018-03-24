@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class Game : MonoBehaviour
 {
@@ -57,15 +58,17 @@ public class Game : MonoBehaviour
     void Start()
     {
         player1.getDeck().buildDeck(11);
-        player2.getDeck().buildDeck(11);
+        player2.getDeck().buildDeck(5);
         player2.setDeckVisibility(false);
         activeDeck = player1.getDeck();
-        
-        if(player1.getDeck().cardsInDeck.Count > 0)
+
+        if (player1.getDeck().cardsInDeck.Count > 0)
             activeCard = player1.getDeck().cardsInDeck[0];
         activeShowingCard = Instantiate(activeCard) as Card;
         activeShowingCard.transform.position = new Vector3(8.96f, 0, -0.1f);
         showActiveCard(false);
+
+        reorganizeGroup();
     }
 
     private enum Status{
@@ -111,6 +114,7 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
+                        
                         switchPlayer();
                     }
                 }
@@ -158,21 +162,150 @@ public class Game : MonoBehaviour
     /// Resolve new posiotion of each card in pointet group
     /// </summary>
     /// <param name="group">group of cards that we want to reorganize. Int value</param>
-    public void reorganizeGroup(int group)
+    public void reorganizeGroup()
     {
-        if (group == (int)CardGroup.DECK)
-        {
-        }
-        else if (group == (int)CardGroup.SWORD)
-        {
-        }
-        else if (group == (int)CardGroup.BOW)
-        {
+        
+            if (activeDeck.cardsInDeck.Count > 0)
+            {
+                Vector3 centerVector = areas.getDeckCenterVector() + new Vector3(0, -0.1456f, -0.1f);
 
-        }
-        else if (group == (int)CardGroup.TREBUCHET)
-        {
+                // For odd number of cards
+                if (activeDeck.cardsInDeck.Count % 2 == 1)
+                {
+                    int j = 1;
+                    activeDeck.cardsInDeck[0].transform.position = centerVector;
 
+                    for (int i = 1; i < activeDeck.cardsInDeck.Count; i++)
+                    {
+                        activeDeck.cardsInDeck[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
+
+                        j *= -1;
+                        if (i % 2 == 0)
+                            j++;
+                    }
+                }
+                else
+                {
+                    int j = 1;
+                    activeDeck.cardsInDeck[0].transform.position = centerVector + new Vector3(0.525f, 0, 0);
+                    activeDeck.cardsInDeck[1].transform.position = centerVector + new Vector3(-0.525f, 0, 0);
+
+                    for (int i = 2; i < activeDeck.cardsInDeck.Count; i++)
+                    {
+                        activeDeck.cardsInDeck[i].transform.position = new Vector3(centerVector.x + j * 1.05f + Math.Sign(j) * 0.525f, centerVector.y, centerVector.z);
+
+                        j *= -1;
+                        if (i % 2 == 1)
+                            j++;
+                    }
+                }
+            }
+        
+        
+            if (activeDeck.cardsInSwords.Count > 0)
+            {
+                Vector3 centerVector = areas.getSwordsCenterVector() + new Vector3(0, -0.1456f, -0.1f);
+
+                // For odd number of cards
+                if (activeDeck.cardsInSwords.Count % 2 == 1)
+                {
+                    int j = 1;
+                    activeDeck.cardsInSwords[0].transform.position = centerVector;
+
+                    for(int i = 1; i<activeDeck.cardsInSwords.Count; i++)
+                    {
+                        activeDeck.cardsInSwords[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
+
+                        j *= -1;
+                        if (i % 2 == 0)
+                            j++;
+                    }
+                }
+                else
+                {
+                    int j = 1;
+                    activeDeck.cardsInSwords[0].transform.position = centerVector + new Vector3(0.525f, 0, 0);
+                    activeDeck.cardsInSwords[1].transform.position = centerVector + new Vector3(-0.525f, 0, 0);
+
+                    for (int i = 2; i < activeDeck.cardsInSwords.Count; i++)
+                    {
+                        activeDeck.cardsInSwords[i].transform.position = new Vector3(centerVector.x + j * 1.05f + Math.Sign(j) * 0.525f, centerVector.y, centerVector.z);
+
+                        j *= -1;
+                        if (i % 2 == 1)
+                            j++;
+                    }
+                }
+            }
+        if (activeDeck.cardsInBows.Count > 0)
+        {
+            Vector3 centerVector = areas.getBowsCenterVector() + new Vector3(0, -0.1456f, -0.1f);
+
+            // For odd number of cards
+            if (activeDeck.cardsInBows.Count % 2 == 1)
+            {
+                int j = 1;
+                activeDeck.cardsInBows[0].transform.position = centerVector;
+
+                for (int i = 1; i < activeDeck.cardsInBows.Count; i++)
+                {
+                    activeDeck.cardsInBows[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 0)
+                        j++;
+                }
+            }
+            else
+            {
+                int j = 1;
+                activeDeck.cardsInBows[0].transform.position = centerVector + new Vector3(0.525f, 0, 0);
+                activeDeck.cardsInBows[1].transform.position = centerVector + new Vector3(-0.525f, 0, 0);
+
+                for (int i = 2; i < activeDeck.cardsInBows.Count; i++)
+                {
+                    activeDeck.cardsInBows[i].transform.position = new Vector3(centerVector.x + j * 1.05f + Math.Sign(j) * 0.525f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 1)
+                        j++;
+                }
+            }
+        }
+        if (activeDeck.cardsInTrebuchets.Count > 0)
+        {
+            Vector3 centerVector = areas.getTrebuchetsCenterVector() + new Vector3(0, -0.1456f, -0.1f);
+
+            // For odd number of cards
+            if (activeDeck.cardsInTrebuchets.Count % 2 == 1)
+            {
+                int j = 1;
+                activeDeck.cardsInTrebuchets[0].transform.position = centerVector;
+
+                for (int i = 1; i < activeDeck.cardsInTrebuchets.Count; i++)
+                {
+                    activeDeck.cardsInTrebuchets[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 0)
+                        j++;
+                }
+            }
+            else
+            {
+                int j = 1;
+                activeDeck.cardsInTrebuchets[0].transform.position = centerVector + new Vector3(0.525f, 0, 0);
+                activeDeck.cardsInTrebuchets[1].transform.position = centerVector + new Vector3(-0.525f, 0, 0);
+
+                for (int i = 2; i < activeDeck.cardsInTrebuchets.Count; i++)
+                {
+                    activeDeck.cardsInTrebuchets[i].transform.position = new Vector3(centerVector.x + j * 1.05f + Math.Sign(j) * 0.525f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 1)
+                        j++;
+                }
+            }
         }
     }
 
@@ -191,9 +324,11 @@ public class Game : MonoBehaviour
     /// </summary>
     private void switchPlayer()
     {
+        reorganizeGroup();
         state = (int)Status.BLOCKED;
         showActiveCard(false);
-        StartCoroutine(Wait(1));
+        
+        StartCoroutine(Wait(0.75f));
     }
 
     IEnumerator Wait(float duration)
@@ -224,6 +359,8 @@ public class Game : MonoBehaviour
         Vector3 tempVector = score1Text.transform.position;
         score1Text.transform.position = score2Text.transform.position;
         score2Text.transform.position = tempVector;
+        
+        reorganizeGroup();
 
         state = (int)Status.FREE;
     }
