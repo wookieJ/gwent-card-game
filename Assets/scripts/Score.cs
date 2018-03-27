@@ -7,6 +7,7 @@ public class Score : MonoBehaviour {
     private Deck deck;
     private int score;
 
+    public int group;
     public Text _MyText;
     public GameObject deckObject;
 
@@ -18,6 +19,6 @@ public class Score : MonoBehaviour {
 
     void Update()
     {
-        _MyText.text = deck.getPowerSum().ToString();
+        _MyText.text = deck.getPowerSum(group).ToString();
     }
 }

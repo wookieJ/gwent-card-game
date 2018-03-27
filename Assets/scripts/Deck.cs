@@ -18,7 +18,7 @@ public class Deck : MonoBehaviour
     public float stepX = 1.05f;
 
     private static int FRONTS_NUMBER = 2;
-    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 8;
+    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 10;
 
     void Awake()
     {
@@ -161,24 +161,34 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
-    /// Get sum of the all card's powers
+    /// Get sum of the card's powers from group or all caards
     /// </summary>
-    /// <returns>sum of powers of all cards in groups</returns>
-    public int getPowerSum()
+    /// <param name="group">number of group (0 - all, 1 - sword, 2 - bow, 3 - trebuchet)</param>
+    /// <returns>sum of powers of cards in group(s)</returns>
+    public int getPowerSum(int group)
     {
         int result = 0;
 
-        foreach (Card card in getSwordCards())
+        if (group == 0 || group == 3)
         {
-            result += card.getPower();
+            foreach (Card card in getTrebuchetCards())
+            {
+                result += card.getPower();
+            }
         }
-        foreach (Card card in getBowCards())
-        {
-            result += card.getPower();
+        if (group == 0 || group == 2)
+        { 
+            foreach (Card card in getBowCards())
+            {
+                result += card.getPower();
+            }
         }
-        foreach (Card card in getTrebuchetCards())
-        {
-            result += card.getPower();
+        if(group == 0 || group == 1)
+        { 
+            foreach (Card card in getSwordCards())
+            {
+                result += card.getPower();
+            }
         }
 
         return result;

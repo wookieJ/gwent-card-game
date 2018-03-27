@@ -29,8 +29,20 @@ public class Game : MonoBehaviour
 
     public GameObject score1Object;
     public GameObject score2Object;
+    public GameObject score3Object;
+    public GameObject score4Object;
+    public GameObject score5Object;
+    public GameObject score6Object;
+    public GameObject score7Object;
+    public GameObject score8Object;
     public Text score1Text;
     public Text score2Text;
+    public Text score3Text;
+    public Text score4Text;
+    public Text score5Text;
+    public Text score6Text;
+    public Text score7Text;
+    public Text score8Text;
 
     public GameObject buttonObject;
     public Button button;
@@ -46,6 +58,12 @@ public class Game : MonoBehaviour
         playerNameText = playerNameTextObject.GetComponent<Text>();
         score1Text = score1Object.GetComponent<Text>();
         score2Text = score2Object.GetComponent<Text>();
+        score3Text = score3Object.GetComponent<Text>();
+        score4Text = score4Object.GetComponent<Text>();
+        score5Text = score5Object.GetComponent<Text>();
+        score6Text = score6Object.GetComponent<Text>();
+        score7Text = score7Object.GetComponent<Text>();
+        score8Text = score8Object.GetComponent<Text>();
 
         button = buttonObject.GetComponent<Button>();
 
@@ -57,8 +75,8 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        player1.getDeck().buildDeck(11);
-        player2.getDeck().buildDeck(5);
+        player1.getDeck().buildDeck(10);
+        player2.getDeck().buildDeck(10);
         player2.setDeckVisibility(false);
         activeDeck = player1.getDeck();
 
@@ -159,9 +177,8 @@ public class Game : MonoBehaviour
     }
 
     /// <summary>
-    /// Resolve new posiotion of each card in pointet group
+    /// Resolve new posiotion of each card in each group
     /// </summary>
-    /// <param name="group">group of cards that we want to reorganize. Int value</param>
     public void reorganizeGroup()
     {
         
@@ -177,6 +194,7 @@ public class Game : MonoBehaviour
 
                     for (int i = 1; i < activeDeck.cardsInDeck.Count; i++)
                     {
+                        // TODO - Expand range of max 8 cards in group and dynamically change offset between ech card in groups. Add functionallity of schowing one card after another (changing z position).
                         activeDeck.cardsInDeck[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
 
                         j *= -1;
@@ -356,10 +374,23 @@ public class Game : MonoBehaviour
         playerNameText.text = "Player " + activePlayerNumber.ToString();
         player1.getDeck().flipGroupCards();
         player2.getDeck().flipGroupCards();
+        // score position replacing
         Vector3 tempVector = score1Text.transform.position;
         score1Text.transform.position = score2Text.transform.position;
         score2Text.transform.position = tempVector;
-        
+
+        tempVector = score3Text.transform.position;
+        score3Text.transform.position = score6Text.transform.position;
+        score6Text.transform.position = tempVector;
+
+        tempVector = score4Text.transform.position;
+        score4Text.transform.position = score7Text.transform.position;
+        score7Text.transform.position = tempVector;
+
+        tempVector = score5Text.transform.position;
+        score5Text.transform.position = score8Text.transform.position;
+        score8Text.transform.position = tempVector;
+
         reorganizeGroup();
 
         state = (int)Status.FREE;
