@@ -8,11 +8,22 @@ public class Card : MonoBehaviour
     private int power;
     private int index;
     private bool active = false;
-    private CardModel cardModel;
+
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D cardColider;
-    public GameObject cardModelGameObject;
+
+    private GameObject cardModelGameObject;
+    private CardModel cardModel;
     
+    void Awake()
+    {
+        cardModelGameObject = GameObject.Find("CardModel");
+        cardModel = cardModelGameObject.GetComponent<CardModel>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        cardColider = GetComponent<BoxCollider2D>();
+        cardColider.size = new Vector2(1f, 1.45f);
+    }
+
     /// <summary>
     /// Name of card
     /// </summary>
@@ -155,13 +166,5 @@ public class Card : MonoBehaviour
     public void mirrorTransform()
     {
         transform.position = new Vector3(transform.position.x * -1 + 4.39f, transform.position.y * -1 + 1.55f, transform.position.z);
-    }
-    
-    void Awake()
-    {
-        cardModel = cardModelGameObject.GetComponent<CardModel>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        cardColider = GetComponent<BoxCollider2D>();
-        cardColider.size = new Vector2(1f, 1.45f);
     }
 }

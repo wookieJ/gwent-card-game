@@ -5,57 +5,74 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
+// TODO - check if SetActive method of GameObject objects works - yes? Correct system of transparent object
+// TODO - areas size matched to deck size so player can disactivate card clicking into deck area at the edges
+
 public class Game : MonoBehaviour
 {
-    public Deck activeDeck;
+    private Card activeCard;
+    private Card activeShowingCard;
+    private static int activePlayerNumber;
+    private static int state = 0;
+
+    private GameObject deckObject;
+    private GameObject deskObject;
+    private GameObject areasObject;
+
+    private Deck activeDeck;
     private Desk desk;
     private Areas areas;
-    public Card activeCard;
-    public static int activePlayerNumber;
 
-    public GameObject deckObject;
-    public GameObject deskObject;
-    public GameObject areasObject;
+    private GameObject playerNameTextObject;
+    private Text playerNameText;
 
-    public Card activeShowingCard;
+    private GameObject player1Object;
+    private GameObject player2Object;
+    private Player player1;
+    private Player player2;
 
-    public GameObject playerNameTextObject;
-    public Text playerNameText;
-
-    public GameObject player1Object;
-    public GameObject player2Object;
-    public Player player1;
-    public Player player2;
-
-    public GameObject score1Object;
-    public GameObject score2Object;
-    public GameObject score3Object;
-    public GameObject score4Object;
-    public GameObject score5Object;
-    public GameObject score6Object;
-    public GameObject score7Object;
-    public GameObject score8Object;
-    public Text score1Text;
-    public Text score2Text;
-    public Text score3Text;
-    public Text score4Text;
-    public Text score5Text;
-    public Text score6Text;
-    public Text score7Text;
-    public Text score8Text;
+    private GameObject score1Object;
+    private GameObject score2Object;
+    private GameObject score3Object;
+    private GameObject score4Object;
+    private GameObject score5Object;
+    private GameObject score6Object;
+    private GameObject score7Object;
+    private GameObject score8Object;
+    private Text score1Text;
+    private Text score2Text;
+    private Text score3Text;
+    private Text score4Text;
+    private Text score5Text;
+    private Text score6Text;
+    private Text score7Text;
+    private Text score8Text;
 
     public GameObject buttonObject;
     public Button button;
 
-    private static int state = 0;
-
     void Awake()
     {
+        deckObject = GameObject.Find("Player1Deck");
         activeDeck = deckObject.GetComponent<Deck>();
+
+        deskObject = GameObject.Find("Desk");
         desk = deskObject.GetComponent<Desk>();
+
+        areasObject = GameObject.Find("Areas");
         areas = areasObject.GetComponent<Areas>();
 
+        playerNameTextObject = GameObject.Find("PlayerName");
         playerNameText = playerNameTextObject.GetComponent<Text>();
+
+        score1Object = GameObject.Find("Score1");
+        score2Object = GameObject.Find("Score2");
+        score3Object = GameObject.Find("Score3");
+        score4Object = GameObject.Find("Score4");
+        score5Object = GameObject.Find("Score5");
+        score6Object = GameObject.Find("Score6");
+        score7Object = GameObject.Find("Score7");
+        score8Object = GameObject.Find("Score8");
         score1Text = score1Object.GetComponent<Text>();
         score2Text = score2Object.GetComponent<Text>();
         score3Text = score3Object.GetComponent<Text>();
@@ -65,8 +82,11 @@ public class Game : MonoBehaviour
         score7Text = score7Object.GetComponent<Text>();
         score8Text = score8Object.GetComponent<Text>();
 
+        buttonObject = GameObject.Find("Button");
         button = buttonObject.GetComponent<Button>();
 
+        player1Object = GameObject.Find("Player1");
+        player2Object = GameObject.Find("Player2");
         player1 = player1Object.GetComponent<Player>();
         player2 = player2Object.GetComponent<Player>();
 
@@ -82,6 +102,7 @@ public class Game : MonoBehaviour
 
         if (player1.getDeck().cardsInDeck.Count > 0)
             activeCard = player1.getDeck().cardsInDeck[0];
+
         activeShowingCard = Instantiate(activeCard) as Card;
         activeShowingCard.transform.position = new Vector3(8.96f, 0, -0.1f);
         showActiveCard(false);

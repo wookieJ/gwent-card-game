@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    public Card baseCard;
+    private GameObject cardGameObject;
+    private Card baseCard;
+
     public List<Card> cardsInDeck = new List<Card>(); // list of cards represented by each index;
     public List<Card> cardsInSwords = new List<Card>(); // list of cards in sword group
     public List<Card> cardsInBows = new List<Card>(); // list of cards in bow group
     public List<Card> cardsInTrebuchets = new List<Card>(); // list of cards in catapulte group
-    public GameObject cardGameObject;
 
     // TODO - dynamic layout cards system
     public float startX = -6.53f;
@@ -22,6 +23,7 @@ public class Deck : MonoBehaviour
 
     void Awake()
     {
+        cardGameObject = GameObject.Find("Card");
         baseCard = cardGameObject.GetComponent<Card>();
     }
 
@@ -39,7 +41,7 @@ public class Deck : MonoBehaviour
                 j = i % 2;
 
             Card clone = Instantiate(baseCard) as Card;
-            clone.transform.position = new Vector3(startX + i * stepX, startY, startZ);
+           // clone.transform.position = new Vector3(startX + i * stepX, startY, startZ);
             clone.setFront(j);
             clone.setPower(baseCard.getCardModel().getPower(j));
             clone.setIndex(i);

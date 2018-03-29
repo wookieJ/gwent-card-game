@@ -4,11 +4,12 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class ButtonContinue : MonoBehaviour {
-    public GameObject buttonObject;
-    public Button button;
+    private GameObject buttonObject;
+    private Button button;
 
     void Awake()
     {
+        buttonObject = GameObject.Find("Button");
         button = buttonObject.GetComponent<Button>();
     }
 
