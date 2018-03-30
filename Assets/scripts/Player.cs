@@ -7,14 +7,24 @@ public class Player : MonoBehaviour
     public string playerName;
     public int score;
     public int health;
-    public Deck deck;
-    public GameObject deckObject;
+    public bool isPlaying;
+    
+    private GameObject deckObject;
+    private Deck deck;
 
     void Awake()
     {
+        string objectGameName = this.gameObject.name + "Deck";
+        deckObject = GameObject.Find(objectGameName);
         deck = deckObject.GetComponent<Deck>();
         health = 2;
         score = 0;
+        isPlaying = true;
+    }
+
+    void Update()
+    {
+        this.score = deck.getPowerSum(0);
     }
 
     /// <summary>
@@ -95,5 +105,13 @@ public class Player : MonoBehaviour
         {
             card.transform.position = new Vector3(card.transform.position.x, value, card.transform.position.z);
         }
+    }
+
+    /// <summary>
+    /// Updating player's score
+    /// </summary>
+    public void updateScore()
+    {
+        this.score = deck.getPowerSum(0);
     }
 }

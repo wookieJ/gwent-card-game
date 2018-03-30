@@ -1011,6 +1011,7 @@ MonoBehaviour:
   cardsInSwords: []
   cardsInBows: []
   cardsInTrebuchets: []
+  cardsInDeaths: []
   startX: -4.4
   startY: -5.35
   startZ: -0.1
@@ -1146,8 +1147,7 @@ MonoBehaviour:
   playerName: 
   score: 0
   health: 0
-  deck: {fileID: 0}
-  deckObject: {fileID: 1226197645}
+  isPlaying: 0
 --- !u!4 &958250540
 Transform:
   m_ObjectHideFlags: 0
@@ -1155,7 +1155,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 958250538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2109294, y: -2.6998055, z: -1.828125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1280,6 +1280,7 @@ MonoBehaviour:
   cardsInSwords: []
   cardsInBows: []
   cardsInTrebuchets: []
+  cardsInDeaths: []
   startX: -4.4
   startY: -5.35
   startZ: -0.1
@@ -1567,8 +1568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08509ec776dcba4dbab57803a0ff1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonObject: {fileID: 0}
-  button: {fileID: 0}
 --- !u!1 &1768926678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,8 +1794,7 @@ MonoBehaviour:
   playerName: 
   score: 0
   health: 0
-  deck: {fileID: 0}
-  deckObject: {fileID: 704135704}
+  isPlaying: 0
 --- !u!4 &1882382899
 Transform:
   m_ObjectHideFlags: 0
@@ -1804,7 +1802,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1882382897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2109294, y: -2.6998055, z: -1.828125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2037,7 +2035,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2140408972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.12, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

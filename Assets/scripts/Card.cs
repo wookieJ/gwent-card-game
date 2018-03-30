@@ -7,6 +7,7 @@ public class Card : MonoBehaviour
     private string cardName;
     private int power;
     private int index;
+    private int group;
     private bool active = false;
 
     private SpriteRenderer spriteRenderer;
@@ -133,6 +134,24 @@ public class Card : MonoBehaviour
             spriteRenderer.sprite = null;
         else
             spriteRenderer.sprite = cardModel.getBigFront(index - 1);
+    }
+
+    /// <summary>
+    /// Set card's group
+    /// </summary>
+    /// <param name="group">1 - sword, 2 - bow, 3 - trebuchet</param>
+    public void setGroup(int group)
+    {
+        this.group = group;
+    }
+
+    /// <summary>
+    /// Get card's group
+    /// </summary>
+    /// <returns>1 - sword, 2 - bow, 3 - trebuchet</returns>
+    public int getGroup()
+    {
+        return this.group;
     }
 
     /// <summary>

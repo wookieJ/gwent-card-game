@@ -7,10 +7,12 @@ public class Deck : MonoBehaviour
     private GameObject cardGameObject;
     private Card baseCard;
 
+    // TODO - move initialization to Awake() or Start()
     public List<Card> cardsInDeck = new List<Card>(); // list of cards represented by each index;
     public List<Card> cardsInSwords = new List<Card>(); // list of cards in sword group
     public List<Card> cardsInBows = new List<Card>(); // list of cards in bow group
     public List<Card> cardsInTrebuchets = new List<Card>(); // list of cards in catapulte group
+    public List<Card> cardsInDeaths = new List<Card>(); // burned or dead cards
 
     // TODO - dynamic layout cards system
     public float startX = -6.53f;
@@ -41,9 +43,11 @@ public class Deck : MonoBehaviour
                 j = i % 2;
 
             Card clone = Instantiate(baseCard) as Card;
-           // clone.transform.position = new Vector3(startX + i * stepX, startY, startZ);
+            clone.tag = "CloneCard";
             clone.setFront(j);
             clone.setPower(baseCard.getCardModel().getPower(j));
+            // TODO - Improve !!!!!!!!!!!!!
+            clone.setGroup(1);
             clone.setIndex(i);
             cardsInDeck.Add(clone);
         }
@@ -145,6 +149,33 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// Send cards from desk to death deck
+    /// </summary>
+    /// <returns>true if succeeded</returns>
+    public bool sendCardsToDeathList()
+    {
+        bool ifSucceeded = false;
+
+        for (int i = cardsInSwords.Count -1; i >=0; i--)
+        {
+            cardsInDeaths.Add(cardsInSwords[i]);
+            ifSucceeded = cardsInSwords.Remove(cardsInSwords[i]);
+        }
+        for (int i = cardsInBows.Count - 1; i >= 0; i--)
+        {
+            cardsInDeaths.Add(cardsInSwords[i]);
+            ifSucceeded = cardsInBows.Remove(cardsInSwords[i]);
+        }
+        for (int i = cardsInTrebuchets.Count - 1; i >= 0; i--)
+        {
+            cardsInDeaths.Add(cardsInSwords[i]);
+            ifSucceeded = cardsInTrebuchets.Remove(cardsInSwords[i]);
+        }
+
+        return ifSucceeded;
+    }
+
+    /// <summary>
     /// disactivating cards in deck
     /// </summary>
     public void disactiveAllInDeck()
@@ -217,4 +248,9 @@ public class Deck : MonoBehaviour
             card.mirrorTransform();
         }
     }
+
+    /// <summary>
+    /// Defined type of card groups
+    /// </summary>
+    private enum CardGroup { DECK, SWORD, BOW, TREBUCHET };
 }

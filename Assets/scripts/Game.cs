@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
@@ -13,7 +11,8 @@ public class Game : MonoBehaviour
     private Card activeCard;
     private Card activeShowingCard;
     private static int activePlayerNumber;
-    private static int state = 0;
+    private static int state = (int)Status.FREE;
+    private static int gameStatus = (int)GameStatus.TOUR1;
 
     private GameObject deckObject;
     private GameObject deskObject;
@@ -48,13 +47,15 @@ public class Game : MonoBehaviour
     private Text score7Text;
     private Text score8Text;
 
-    public GameObject buttonObject;
-    public Button button;
+    private GameObject buttonObject;
+    private Button button;
 
     void Awake()
     {
-        deckObject = GameObject.Find("Player1Deck");
-        activeDeck = deckObject.GetComponent<Deck>();
+        player1Object = GameObject.Find("Player1");
+        player2Object = GameObject.Find("Player2");
+        player1 = player1Object.GetComponent<Player>();
+        player2 = player2Object.GetComponent<Player>();
 
         deskObject = GameObject.Find("Desk");
         desk = deskObject.GetComponent<Desk>();
@@ -85,18 +86,26 @@ public class Game : MonoBehaviour
         buttonObject = GameObject.Find("Button");
         button = buttonObject.GetComponent<Button>();
 
-        player1Object = GameObject.Find("Player1");
-        player2Object = GameObject.Find("Player2");
-        player1 = player1Object.GetComponent<Player>();
-        player2 = player2Object.GetComponent<Player>();
-
         activePlayerNumber = (int)PlayerNumber.PLAYER1;
+        gameStatus = (int)GameStatus.TOUR1;
     }    
 
     void Start()
     {
-        player1.getDeck().buildDeck(10);
-        player2.getDeck().buildDeck(10);
+        initializePlayersDecks();
+    }
+
+    void initializePlayersDecks()
+    {
+        activePlayerNumber = (int)PlayerNumber.PLAYER1;
+
+        player1.getDeck().sendCardsToDeathList();
+        player2.getDeck().sendCardsToDeathList();
+
+        Debug.Log("Deleted " + deleteAllCardClones() + " cards");
+
+        player1.getDeck().buildDeck(1);
+        player2.getDeck().buildDeck(1);
         player2.setDeckVisibility(false);
         activeDeck = player1.getDeck();
 
@@ -116,8 +125,26 @@ public class Game : MonoBehaviour
         BLOCKED
     };
 
+    /// <summary>
+    /// Delete all clone cards
+    /// </summary>
+    /// <returns>Number of deleted cards</returns>
+    public int deleteAllCardClones()
+    {
+        int cloneNumber = 0;
+        GameObject[] cloneCards = GameObject.FindGameObjectsWithTag("CloneCard");
+        cloneNumber = cloneCards.Length;
+
+        foreach (GameObject go in cloneCards)
+            GameObject.DestroyObject(go);
+
+        return cloneNumber;
+    }
+
     void Update()
     {
+        // Picking card
+        // ---------------------------------------------------------------------------------------------------------------
         // vector of actual mouse position
         Vector3 mouseRelativePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseRelativePosition.z = -0.1f;
@@ -145,7 +172,7 @@ public class Game : MonoBehaviour
             // click on card sword group
             else if (areas.getSwordColliderBounds().Contains(mouseRelativePosition))
             {
-                if (state == (int)Status.ACTIVE_CARD)
+                if (state == (int)Status.ACTIVE_CARD && activeCard.getGroup() == (int)CardGroup.SWORD)
                 {
                     // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
@@ -153,14 +180,21 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
-                        
-                        switchPlayer();
+
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
                     }
                 }
             }
             else if (areas.getBowColliderBounds().Contains(mouseRelativePosition))
             {
-                if (state == (int)Status.ACTIVE_CARD)
+                if (state == (int)Status.ACTIVE_CARD && activeCard.getGroup() == (int)CardGroup.BOW)
                 {
                     // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
@@ -168,13 +202,20 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
-                        switchPlayer();
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
                     }
                 }
             }
             else if (areas.getTrebuchetColliderBounds().Contains(mouseRelativePosition))
             {
-                if (state == (int)Status.ACTIVE_CARD)
+                if (state == (int)Status.ACTIVE_CARD && activeCard.getGroup() == (int)CardGroup.TREBUCHET)
                 {
                     // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
@@ -183,7 +224,14 @@ public class Game : MonoBehaviour
                     {
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
-                        switchPlayer();
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
                     }
                 }
             }
@@ -193,6 +241,89 @@ public class Game : MonoBehaviour
                 activeCard = null;
                 showActiveCard(false);
                 state = (int)Status.FREE;
+            }
+        }
+        // Ending player time, tour
+        // TODO - Change gameStatus
+        // ---------------------------------------------------------------------------------------------------------------
+        if (player1.getDeck().cardsInDeck.Count == 0 && player1.isPlaying)
+        {
+            //Debug.Log("Player1 has no cards");
+            player1.isPlaying = false;
+        }
+        if(player2.getDeck().cardsInDeck.Count == 0 && player2.isPlaying)
+        {
+            //Debug.Log("Player2 has no cards");
+            player2.isPlaying = false;
+        }
+        if (player1.isPlaying == false && player2.isPlaying == false && gameStatus != (int)GameStatus.END)
+        {
+            player1.updateScore();
+            player2.updateScore();
+            //Debug.Log("Both players have no cards");
+            //Debug.Log("P1: " + player1.score + ", P2: " + player2.score);
+            // End of tour - check who won, subtract health, set new tour
+            if (player1.score >= player2.score)
+            {
+                //Debug.Log("player1.score >= player2.score");
+                if (player2.health > 0)
+                {
+                    //Debug.Log("player2.health > 0");
+                    // Player 1 won the tour
+                    player2.health--;
+                }
+                if(player2.health == 0)
+                {
+                    // Player 1 won the game
+                    player2.health = -1;
+                }
+            }
+            if (player1.score <= player2.score)
+            {
+               // Debug.Log("player1.score <= player2.score");
+                if (player1.health > 0)
+                {
+                    //Debug.Log("player1.health > 0");
+                    // Player 2 won the tour
+                    player1.health--;
+                }
+                if(player1.health == 0)
+                {
+                    // Player 2 won the game
+                    player1.health = -1;
+                }
+            }
+            if (player1.health == 100 && player2.health == 100)
+            {
+                //Debug.Log("REMIS!");
+                gameStatus = (int)GameStatus.END;
+            }
+            else if (player1.health == -1)
+            {
+                //Debug.Log("P1 WON!");
+                gameStatus = (int)GameStatus.END;
+            }
+            else if (player2.health == -1)
+            {
+                //Debug.Log("P2 WON!");
+                gameStatus = (int)GameStatus.END;
+            }
+
+            //Debug.Log(gameStatus);
+
+            if (gameStatus != (int)GameStatus.END)
+            {
+                //Debug.Log("player1/2.isPlaying = true;");
+                player1.isPlaying = true;
+                player2.isPlaying = true;
+
+                // something wrong
+                initializePlayersDecks();
+            }
+            else
+            {
+                //Debug.Log("Deleting!");
+                deleteAllCardClones();
             }
         }
     }
@@ -357,6 +488,11 @@ public class Game : MonoBehaviour
     /// Defined name of players
     /// </summary>
     private enum PlayerNumber { PLAYER1 = 1, PLAYER2 };
+
+    /// <summary>
+    /// Defined game status
+    /// </summary>
+    private enum GameStatus { END, TOUR1, TOUR2, TOUR3 };
 
     /// <summary>
     /// Switch player - update active deck
