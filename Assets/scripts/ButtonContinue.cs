@@ -16,5 +16,5 @@ public class ButtonContinue : MonoBehaviour {
     public void removeButton()
     {
         button.transform.position = new Vector3(0, 15f, -1f);
-    }
+    }    
 }

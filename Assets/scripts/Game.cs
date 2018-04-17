@@ -6,6 +6,11 @@ using System;
 // TODO - check if SetActive method of GameObject objects works - yes? Correct system of transparent object
 // TODO - areas size matched to deck size so player can disactivate card clicking into deck area at the edges
 
+// TODO - Do not flip deck's cards
+// TODO - Drag and drop system
+// TODO - Give up button can be pressed when switch player plane appears
+// TODO - Text
+
 public class Game : MonoBehaviour
 {
     private Card activeCard;
@@ -50,6 +55,12 @@ public class Game : MonoBehaviour
     private GameObject buttonObject;
     private Button button;
 
+    public GameObject endPanelObject;
+    public GameObject endTextObject;
+    public Text endText;
+
+    private GameObject giveUpButtonObject;
+
     void Awake()
     {
         player1Object = GameObject.Find("Player1");
@@ -86,26 +97,46 @@ public class Game : MonoBehaviour
         buttonObject = GameObject.Find("Button");
         button = buttonObject.GetComponent<Button>();
 
+        endPanelObject = GameObject.FindGameObjectWithTag("EndPanel");
+        endPanelObject.transform.position += new Vector3(0,0,-0.8f);
+        endTextObject = GameObject.FindGameObjectWithTag("EndText");
+        endText = endTextObject.GetComponent<Text>();
+
+        giveUpButtonObject = GameObject.FindGameObjectWithTag("giveUpButton");
+        giveUpButtonObject.SetActive(true);
+
+        endPanelObject.SetActive(false);
+
         activePlayerNumber = (int)PlayerNumber.PLAYER1;
         gameStatus = (int)GameStatus.TOUR1;
     }    
 
     void Start()
     {
+        player1.getDeck().buildDeck(10);
+        player2.getDeck().buildDeck(10);
+
+        activePlayerNumber = (int)PlayerNumber.PLAYER1;
+
         initializePlayersDecks();
     }
 
     void initializePlayersDecks()
     {
-        activePlayerNumber = (int)PlayerNumber.PLAYER1;
-
         player1.getDeck().sendCardsToDeathList();
         player2.getDeck().sendCardsToDeathList();
 
-        Debug.Log("Deleted " + deleteAllCardClones() + " cards");
+        player1.moveCardsFromDeskToDeathArea(activePlayerNumber);
+        player2.moveCardsFromDeskToDeathArea(activePlayerNumber);
 
-        player1.getDeck().buildDeck(1);
-        player2.getDeck().buildDeck(1);
+        //Debug.Log("Deleted " + deleteAllCardClones() + " cards");
+
+        // player1.reloadDeck();
+        //player2.reloadDeck();
+
+        Debug.Log("P1 amount of cards: " + player1.getDeck().cardsInDeck.Count);
+        Debug.Log("P2 amount of cards: " + player2.getDeck().cardsInDeck.Count);
+
         player2.setDeckVisibility(false);
         activeDeck = player1.getDeck();
 
@@ -117,6 +148,9 @@ public class Game : MonoBehaviour
         showActiveCard(false);
 
         reorganizeGroup();
+
+        //player1.getDeck().cardsInDeck[0].setPower(10);
+        //player2.getDeck().cardsInDeck[0].setPower(15);
     }
 
     private enum Status{
@@ -129,7 +163,7 @@ public class Game : MonoBehaviour
     /// Delete all clone cards
     /// </summary>
     /// <returns>Number of deleted cards</returns>
-    public int deleteAllCardClones()
+    /*public int deleteAllCardClones()
     {
         int cloneNumber = 0;
         GameObject[] cloneCards = GameObject.FindGameObjectsWithTag("CloneCard");
@@ -139,7 +173,7 @@ public class Game : MonoBehaviour
             GameObject.DestroyObject(go);
 
         return cloneNumber;
-    }
+    }*/
 
     void Update()
     {
@@ -248,28 +282,29 @@ public class Game : MonoBehaviour
         // ---------------------------------------------------------------------------------------------------------------
         if (player1.getDeck().cardsInDeck.Count == 0 && player1.isPlaying)
         {
-            //Debug.Log("Player1 has no cards");
+            Debug.Log("Player1 has no cards");
             player1.isPlaying = false;
         }
         if(player2.getDeck().cardsInDeck.Count == 0 && player2.isPlaying)
         {
-            //Debug.Log("Player2 has no cards");
+            Debug.Log("Player2 has no cards");
             player2.isPlaying = false;
         }
         if (player1.isPlaying == false && player2.isPlaying == false && gameStatus != (int)GameStatus.END)
         {
             player1.updateScore();
             player2.updateScore();
-            //Debug.Log("Both players have no cards");
-            //Debug.Log("P1: " + player1.score + ", P2: " + player2.score);
+            Debug.Log("Both players have no cards");
+            Debug.Log("P1: " + player1.score + ", P2: " + player2.score);
             // End of tour - check who won, subtract health, set new tour
-            if (player1.score >= player2.score)
+            if (player1.score > player2.score)
             {
-                //Debug.Log("player1.score >= player2.score");
+                Debug.Log("player1.score > player2.score");
                 if (player2.health > 0)
                 {
-                    //Debug.Log("player2.health > 0");
+                    Debug.Log("player2.health > 0");
                     // Player 1 won the tour
+                    endText.text = "Gracz 1 wygrał!";
                     player2.health--;
                 }
                 if(player2.health == 0)
@@ -278,13 +313,14 @@ public class Game : MonoBehaviour
                     player2.health = -1;
                 }
             }
-            if (player1.score <= player2.score)
+            else if (player1.score < player2.score)
             {
-               // Debug.Log("player1.score <= player2.score");
+                Debug.Log("player1.score <= player2.score");
                 if (player1.health > 0)
                 {
-                    //Debug.Log("player1.health > 0");
+                    Debug.Log("player1.health > 0");
                     // Player 2 won the tour
+                    endText.text = "Gracz 2 wygrał!";
                     player1.health--;
                 }
                 if(player1.health == 0)
@@ -293,39 +329,75 @@ public class Game : MonoBehaviour
                     player1.health = -1;
                 }
             }
-            if (player1.health == 100 && player2.health == 100)
+            else
             {
-                //Debug.Log("REMIS!");
+                if (player1.health > 0)
+                    player1.health--;
+                if (player2.health > 0)
+                    player2.health--;
+                endText.text = "Remis!";
+                if (player1.health == 0)
+                    player1.health = -1;
+                if (player2.health == 0)
+                    player2.health = -1;
+            }
+
+            // game over
+            if (player1.health == -1 && player2.health == -1)
+            {
+                Debug.Log("REMIS!");
                 gameStatus = (int)GameStatus.END;
+
+                // TODO - zawsze przy remisie PLAYER1 - może losować?
+                //activePlayerNumber = (int)PlayerNumber.PLAYER1;
             }
             else if (player1.health == -1)
             {
-                //Debug.Log("P1 WON!");
+                Debug.Log("P1 WON!");
                 gameStatus = (int)GameStatus.END;
+               // activePlayerNumber = (int)PlayerNumber.PLAYER1;
             }
             else if (player2.health == -1)
             {
-                //Debug.Log("P2 WON!");
+                Debug.Log("P2 WON!");
                 gameStatus = (int)GameStatus.END;
+              //  activePlayerNumber = (int)PlayerNumber.PLAYER2;
             }
-
-            //Debug.Log(gameStatus);
 
             if (gameStatus != (int)GameStatus.END)
             {
-                //Debug.Log("player1/2.isPlaying = true;");
-                player1.isPlaying = true;
-                player2.isPlaying = true;
-
-                // something wrong
-                initializePlayersDecks();
+                Debug.Log("End tour()");
+                endTour();
             }
             else
             {
+                gameOver();
+                
                 //Debug.Log("Deleting!");
-                deleteAllCardClones();
+               // deleteAllCardClones();
             }
         }
+    }
+
+    private void gameOver()
+    {
+        endPanelObject.SetActive(true);
+        giveUpButtonObject.SetActive(false);
+        StartCoroutine(GameOverScreen(2f));
+    }
+
+    IEnumerator GameOverScreen(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        
+        // after
+        endText.text = "Game Over\n";
+        if(player1.health == -1 && player2.health == -1)
+            endText.text += "\nRemis";
+        else if(player2.health == -1)
+            endText.text += "\nGracz 1 wygrał";
+        else if(player1.health == -1)
+            endText.text += "\nGracz 2 wygrał";
     }
 
     /// <summary>
@@ -506,6 +578,34 @@ public class Game : MonoBehaviour
         StartCoroutine(Wait(0.75f));
     }
 
+    /// <summary>
+    /// End tour - show who won and start new game
+    /// </summary>
+    private void endTour()
+    {
+        // before
+        endPanelObject.SetActive(true);
+        giveUpButtonObject.SetActive(false);
+
+        player1.isPlaying = true;
+        player2.isPlaying = true;
+
+        initializePlayersDecks();
+        // TODO - Player who has won - started
+        Debug.Log("WaitEndTour() has started");
+        StartCoroutine(WaitEndTour(3f));
+    }
+
+    IEnumerator WaitEndTour(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        Debug.Log("WaitEndTour() has ended");
+        // after
+        endPanelObject.SetActive(false);
+        giveUpButtonObject.SetActive(true);
+    }
+
     IEnumerator Wait(float duration)
     {
         yield return new WaitForSeconds(duration);
@@ -560,5 +660,16 @@ public class Game : MonoBehaviour
             activeShowingCard.setBigFront(activeCard.getIndex() % 2 + 1);
         else
             activeShowingCard.setBigFront(0);
+    }
+
+    public void giveUp()
+    {
+        Debug.Log("Give up!");
+        switchPlayer();
+
+        if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
+            player1.isPlaying = false;
+        else if (activePlayerNumber == (int)PlayerNumber.PLAYER2)
+            player2.isPlaying = false;
     }
 }

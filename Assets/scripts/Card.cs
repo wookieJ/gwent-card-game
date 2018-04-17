@@ -166,21 +166,28 @@ public class Card : MonoBehaviour
     /// <summary>
     /// Flip card
     /// </summary>
-    public void flip()
+    /// <param name="x">true if you want to flip in x axis</param>
+    /// <param name="y">true if you want to flip in y axis</param>
+    public void flip(bool x, bool y)
     {
-        if (spriteRenderer.flipX == true)
-            spriteRenderer.flipX = false;
-        else
-            spriteRenderer.flipX = true;
-
-        if (spriteRenderer.flipY == true)
-            spriteRenderer.flipY = false;
-        else
-            spriteRenderer.flipY = true;
+        if (x == true)
+        {
+            if (spriteRenderer.flipX == true)
+                spriteRenderer.flipX = false;
+            else
+                spriteRenderer.flipX = true;
+        }
+        if (y == true)
+        {
+            if (spriteRenderer.flipY == true)
+                spriteRenderer.flipY = false;
+            else
+                spriteRenderer.flipY = true;
+        }
     }
 
     /// <summary>
-    /// Mirror transformation around (0,0,0) point
+    /// Mirror transformation around (0,0,0) point of Desk
     /// </summary>
     public void mirrorTransform()
     {

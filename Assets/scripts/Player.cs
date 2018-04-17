@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public int score;
     public int health;
     public bool isPlaying;
+    public int player;
     
     private GameObject deckObject;
     private Deck deck;
@@ -20,11 +21,61 @@ public class Player : MonoBehaviour
         health = 2;
         score = 0;
         isPlaying = true;
+        if (this.gameObject.name.Equals("Player1"))
+            player = (int)WhichPlayer.PLAYER1;
+        else
+            player = (int)WhichPlayer.PLAYER2;
     }
 
     void Update()
     {
         this.score = deck.getPowerSum(0);
+    }
+
+    public void moveCardsFromDeskToDeathArea(int activePlayerNumber)
+    {
+        Vector3 player1DeathAreaVector = new Vector3(8.51f, -4.6f, -0.1f);
+        Vector3 player2DeathAreaVector = new Vector3(8.51f, 4.6f, -0.1f);
+
+        Debug.Log("!!!!!!!!!!!!!! -> " + activePlayerNumber);
+
+        foreach (Card card in deck.getDeathCards())
+        {
+            if (player == (int)WhichPlayer.PLAYER2)
+            {
+                card.transform.position = player1DeathAreaVector;
+                 if (activePlayerNumber == (int)WhichPlayer.PLAYER1)
+                 {
+                     float x = card.transform.position.x;
+                     float y = card.transform.position.y;
+                     float z = card.transform.position.z;
+
+                     card.transform.position = new Vector3(x, y * -1f, z);
+                 }
+            }
+            else
+            {
+                card.transform.position = player2DeathAreaVector;
+                if (activePlayerNumber == (int)WhichPlayer.PLAYER1)
+                {
+                    float x = card.transform.position.x;
+                    float y = card.transform.position.y;
+                    float z = card.transform.position.z;
+
+                    card.transform.position = new Vector3(x, y * -1f, z);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Reloading player's deck
+    /// </summary>
+    public void reloadDeck()
+    {
+        string objectGameName = this.gameObject.name + "Deck";
+        deckObject = GameObject.Find(objectGameName);
+        deck = deckObject.GetComponent<Deck>();
     }
 
     /// <summary>
@@ -96,6 +147,7 @@ public class Player : MonoBehaviour
     /// <param name="visibility">true if we want to see cards and false to disapear them</param>
     public void setDeckVisibility(bool visibility)
     {
+        Debug.Log("setDeckVisibility()");
         float value = -10;
 
         if (visibility == true)
@@ -114,4 +166,9 @@ public class Player : MonoBehaviour
     {
         this.score = deck.getPowerSum(0);
     }
+
+    /// <summary>
+    /// Indicate player
+    /// </summary>
+    private enum WhichPlayer { PLAYER1 = 1, PLAYER2 };
 }

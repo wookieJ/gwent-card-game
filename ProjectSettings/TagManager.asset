@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - CloneCard
+  - EndText
+  - EndPanel
+  - giveUpButton
   layers:
   - Default
   - TransparentFX

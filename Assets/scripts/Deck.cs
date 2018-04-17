@@ -85,6 +85,14 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public IEnumerable<Card> getDeathCards()
+    {
+        foreach (Card c in cardsInDeaths)
+        {
+            yield return c;
+        }
+    }
+
     /// <summary>
     /// adding card to sword group
     /// </summary>
@@ -163,13 +171,13 @@ public class Deck : MonoBehaviour
         }
         for (int i = cardsInBows.Count - 1; i >= 0; i--)
         {
-            cardsInDeaths.Add(cardsInSwords[i]);
-            ifSucceeded = cardsInBows.Remove(cardsInSwords[i]);
+            cardsInDeaths.Add(cardsInBows[i]);
+            ifSucceeded = cardsInBows.Remove(cardsInBows[i]);
         }
         for (int i = cardsInTrebuchets.Count - 1; i >= 0; i--)
         {
-            cardsInDeaths.Add(cardsInSwords[i]);
-            ifSucceeded = cardsInTrebuchets.Remove(cardsInSwords[i]);
+            cardsInDeaths.Add(cardsInTrebuchets[i]);
+            ifSucceeded = cardsInTrebuchets.Remove(cardsInTrebuchets[i]);
         }
 
         return ifSucceeded;
@@ -234,18 +242,28 @@ public class Deck : MonoBehaviour
     {
         foreach(Card card in getSwordCards())
         {
-            card.flip();
+            card.flip(true, true);
             card.mirrorTransform();
         }
         foreach (Card card in getBowCards())
         {
-            card.flip();
+            card.flip(true, true);
             card.mirrorTransform();
         }
         foreach (Card card in getTrebuchetCards())
         {
-            card.flip();
+            card.flip(true, true);
             card.mirrorTransform();
+        }
+        foreach (Card card in getDeathCards())
+        {
+            card.flip(false, true);
+
+            float x = card.transform.position.x;
+            float y = card.transform.position.y;
+            float z = card.transform.position.z;
+
+            card.transform.position = new Vector3(x, y * -1f, z);
         }
     }
 
