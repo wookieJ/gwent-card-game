@@ -9,12 +9,40 @@ public class Player : MonoBehaviour
     public int health;
     public bool isPlaying;
     public int player;
-    
+
+    private GameObject lifeObject;
+    private HealthDiamond life;
+    private HealthDiamond firstHealthDiamond;
+    private HealthDiamond secondHealthDiamond;
+
     private GameObject deckObject;
     private Deck deck;
 
     void Awake()
     {
+        lifeObject = GameObject.Find("HealthDiamond");
+        life = lifeObject.GetComponent<HealthDiamond>();
+
+        // creating two instance of life diamond image
+        firstHealthDiamond = Instantiate(life) as HealthDiamond;
+        secondHealthDiamond = Instantiate(life) as HealthDiamond;
+
+        // settings of instances
+        Debug.Log("Player creating - P" + player);
+        if (player == (int)WhichPlayer.PLAYER2)
+        {
+            firstHealthDiamond.moveTo(-8.05f, 2.26f);
+            secondHealthDiamond.moveTo(-7.31f, 2.26f);
+        }
+        else
+        {
+            firstHealthDiamond.moveTo(-8.05f, -1.93f);
+            secondHealthDiamond.moveTo(-7.31f, -1.93f);
+        }
+
+        firstHealthDiamond.enableSprite();
+        secondHealthDiamond.enableSprite();
+
         string objectGameName = this.gameObject.name + "Deck";
         deckObject = GameObject.Find(objectGameName);
         deck = deckObject.GetComponent<Deck>();
@@ -32,12 +60,38 @@ public class Player : MonoBehaviour
         this.score = deck.getPowerSum(0);
     }
 
+    /// <summary>
+    /// Method which updating player's health visualisation
+    /// </summary>
+    public void updateHealthDiamonds()
+    {
+        if (health == 1)
+            secondHealthDiamond.setVisibility(false);
+        else if (health == 0 || health == -1)
+            firstHealthDiamond.setVisibility(false);
+    }
+
+    /// <summary>
+    /// Getting Health Diamond
+    /// </summary>
+    /// <param name="whichHealth">number indicates which health we want to get</param>
+    /// <returns>HealthDiamond of health</returns>
+    public HealthDiamond getHealthDiamond(int whichHealth)
+    {
+        if (whichHealth == 1)
+            return firstHealthDiamond;
+        else
+            return secondHealthDiamond;
+    }
+
+    /// <summary>
+    /// Moving cards from each group of desk to plce where dead cards are
+    /// </summary>
+    /// <param name="activePlayerNumber">which player is playing</param>
     public void moveCardsFromDeskToDeathArea(int activePlayerNumber)
     {
         Vector3 player1DeathAreaVector = new Vector3(8.51f, -4.6f, -0.1f);
         Vector3 player2DeathAreaVector = new Vector3(8.51f, 4.6f, -0.1f);
-
-        Debug.Log("!!!!!!!!!!!!!! -> " + activePlayerNumber);
 
         foreach (Card card in deck.getDeathCards())
         {

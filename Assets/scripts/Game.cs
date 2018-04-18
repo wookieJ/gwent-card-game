@@ -183,15 +183,6 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        // Unblocking player's name and giveUp button
-        // ---------------------------------------------------------------------------------------------------------------
-        /*if (state == (int)Status.FREE)
-        {
-            giveUpButtonObject.SetActive(true);
-            playerDownNameTextObject.SetActive(true);
-            playerUpNameTextObject.SetActive(true);
-        }*/
-
         // Picking card
         // ---------------------------------------------------------------------------------------------------------------
         // vector of actual mouse position
@@ -321,6 +312,7 @@ public class Game : MonoBehaviour
                     // Player 1 won the tour
                     endText.text = "Gracz 1 wygrał!";
                     player2.health--;
+                    player2.updateHealthDiamonds();
                 }
                 if(player2.health == 0)
                 {
@@ -337,6 +329,7 @@ public class Game : MonoBehaviour
                     // Player 2 won the tour
                     endText.text = "Gracz 2 wygrał!";
                     player1.health--;
+                    player1.updateHealthDiamonds();
                 }
                 if(player1.health == 0)
                 {
@@ -355,6 +348,9 @@ public class Game : MonoBehaviour
                     player1.health = -1;
                 if (player2.health == 0)
                     player2.health = -1;
+
+                player1.updateHealthDiamonds();
+                player2.updateHealthDiamonds();
             }
 
             // game over
@@ -652,6 +648,16 @@ public class Game : MonoBehaviour
         Vector3 upPlayerNamePosition = playerUpNameTextObject.transform.position;
         playerUpNameTextObject.transform.position = playerDownNameTextObject.transform.position;
         playerDownNameTextObject.transform.position = upPlayerNamePosition;
+
+        // changing position of players health diamonds
+        Vector3 playerOneHealthOneVector = player1.getHealthDiamond(1).getPosition();
+        Vector3 playerOneHealthSecondVector = player1.getHealthDiamond(2).getPosition();
+        Vector3 playerTwoHealthOneVector = player2.getHealthDiamond(1).getPosition();
+        Vector3 playerTwoHealthSecondVector = player2.getHealthDiamond(2).getPosition();
+        player1.getHealthDiamond(1).setPosition(playerTwoHealthOneVector);
+        player1.getHealthDiamond(2).setPosition(playerTwoHealthSecondVector);
+        player2.getHealthDiamond(1).setPosition(playerOneHealthOneVector);
+        player2.getHealthDiamond(2).setPosition(playerOneHealthSecondVector);
 
         player1.getDeck().flipGroupCards();
         player2.getDeck().flipGroupCards();
