@@ -22,6 +22,9 @@ public class Deck : MonoBehaviour
 
     private static int FRONTS_NUMBER = 2;
     private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 10;
+    private static int SWORD_GROUP_AMOUNT = 2;
+    private static int BOW_GROUP_AMOUNT = 0;
+    private static int TREBUCHET_GROUP_AMOUNT = 0;
 
     void Awake()
     {
@@ -35,20 +38,18 @@ public class Deck : MonoBehaviour
     /// <param name="numberOfCards">how many cards have to be added to player's deck</param>
     public void buildDeck(int numberOfCards)
     {
-        for (int i = 0; i < numberOfCards; i++)
+        for (int cardIndex = 0; cardIndex < numberOfCards; cardIndex++)
         {
-            int j = i;
-
-            if (i > FRONTS_NUMBER - 1)
-                j = i % 2;
-
+            int cardId = Random.Range(0, FRONTS_NUMBER);
+            Debug.Log(cardId);
+            
             Card clone = Instantiate(baseCard) as Card;
             clone.tag = "CloneCard";
-            clone.setFront(j);
-            clone.setPower(baseCard.getCardModel().getPower(j));
+            clone.setFront(cardId);
+            clone.setPower(baseCard.getCardModel().getPower(cardId));
             // TODO - Improve !!!!!!!!!!!!!
-            clone.setGroup(1);
-            clone.setIndex(i);
+            clone.setGroup(cardId < SWORD_GROUP_AMOUNT ? 1 : cardId < BOW_GROUP_AMOUNT ? 2 : 3);
+            clone.setIndex(cardIndex);
             cardsInDeck.Add(clone);
         }
     }
@@ -242,22 +243,22 @@ public class Deck : MonoBehaviour
     {
         foreach(Card card in getSwordCards())
         {
-            card.flip(true, true);
+            //card.flip(true, true);
             card.mirrorTransform();
         }
         foreach (Card card in getBowCards())
         {
-            card.flip(true, true);
+            //card.flip(true, true);
             card.mirrorTransform();
         }
         foreach (Card card in getTrebuchetCards())
         {
-            card.flip(true, true);
+            //card.flip(true, true);
             card.mirrorTransform();
         }
         foreach (Card card in getDeathCards())
         {
-            card.flip(false, true);
+            //card.flip(false, true);
 
             float x = card.transform.position.x;
             float y = card.transform.position.y;

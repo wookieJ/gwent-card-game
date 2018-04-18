@@ -8,8 +8,8 @@ using System;
 
 // TODO - Do not flip deck's cards
 // TODO - Drag and drop system
-// TODO - Give up button can be pressed when switch player plane appears
 // TODO - Text
+// TODO - Allign cards with value - increasing. Sorting method to replace cards.
 
 public class Game : MonoBehaviour
 {
@@ -27,8 +27,11 @@ public class Game : MonoBehaviour
     private Desk desk;
     private Areas areas;
 
-    private GameObject playerNameTextObject;
-    private Text playerNameText;
+    private GameObject playerDownNameTextObject;
+    private Text playerDownNameText;
+
+    private GameObject playerUpNameTextObject;
+    private Text playerUpNameText;
 
     private GameObject player1Object;
     private GameObject player2Object;
@@ -74,8 +77,11 @@ public class Game : MonoBehaviour
         areasObject = GameObject.Find("Areas");
         areas = areasObject.GetComponent<Areas>();
 
-        playerNameTextObject = GameObject.Find("PlayerName");
-        playerNameText = playerNameTextObject.GetComponent<Text>();
+        playerDownNameTextObject = GameObject.Find("DownPlayerName");
+        playerDownNameText = playerDownNameTextObject.GetComponent<Text>();
+
+        playerUpNameTextObject = GameObject.Find("UpPlayerName");
+        playerUpNameText = playerUpNameTextObject.GetComponent<Text>();
 
         score1Object = GameObject.Find("Score1");
         score2Object = GameObject.Find("Score2");
@@ -98,7 +104,7 @@ public class Game : MonoBehaviour
         button = buttonObject.GetComponent<Button>();
 
         endPanelObject = GameObject.FindGameObjectWithTag("EndPanel");
-        endPanelObject.transform.position += new Vector3(0,0,-0.8f);
+        endPanelObject.transform.position = new Vector3(0,0,-1.8f);
         endTextObject = GameObject.FindGameObjectWithTag("EndText");
         endText = endTextObject.GetComponent<Text>();
 
@@ -177,6 +183,15 @@ public class Game : MonoBehaviour
 
     void Update()
     {
+        // Unblocking player's name and giveUp button
+        // ---------------------------------------------------------------------------------------------------------------
+        /*if (state == (int)Status.FREE)
+        {
+            giveUpButtonObject.SetActive(true);
+            playerDownNameTextObject.SetActive(true);
+            playerUpNameTextObject.SetActive(true);
+        }*/
+
         // Picking card
         // ---------------------------------------------------------------------------------------------------------------
         // vector of actual mouse position
@@ -609,7 +624,11 @@ public class Game : MonoBehaviour
     IEnumerator Wait(float duration)
     {
         yield return new WaitForSeconds(duration);
-        
+
+        //giveUpButtonObject.SetActive(false);
+        //playerDownNameTextObject.SetActive(false);
+       // playerUpNameTextObject.SetActive(false);
+
         button.transform.position = new Vector3(0, 0, -1f);
 
         if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
@@ -627,8 +646,13 @@ public class Game : MonoBehaviour
             activePlayerNumber = (int)PlayerNumber.PLAYER1;
         }
 
-        button.GetComponentInChildren<Text>().text = "Player " + activePlayerNumber + ",\nDotknij aby kontynuować";
-        playerNameText.text = "Player " + activePlayerNumber.ToString();
+        button.GetComponentInChildren<Text>().text = "Gracz " + activePlayerNumber + ",\nDotknij aby kontynuować";
+        //playerNameText.text = "Gracz " + activePlayerNumber.ToString();
+
+        Vector3 upPlayerNamePosition = playerUpNameTextObject.transform.position;
+        playerUpNameTextObject.transform.position = playerDownNameTextObject.transform.position;
+        playerDownNameTextObject.transform.position = upPlayerNamePosition;
+
         player1.getDeck().flipGroupCards();
         player2.getDeck().flipGroupCards();
         // score position replacing
@@ -664,12 +688,18 @@ public class Game : MonoBehaviour
 
     public void giveUp()
     {
-        Debug.Log("Give up!");
-        switchPlayer();
+        Debug.Log("Button position: " + button.transform.position);
+        if (button.transform.position.y > 5f)
+        {
+            Debug.Log("Give up!");
+            switchPlayer();
 
-        if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
-            player1.isPlaying = false;
-        else if (activePlayerNumber == (int)PlayerNumber.PLAYER2)
-            player2.isPlaying = false;
+            if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
+                player1.isPlaying = false;
+            else if (activePlayerNumber == (int)PlayerNumber.PLAYER2)
+                player2.isPlaying = false;
+        }
+        else
+            Debug.Log("Blocked!");
     }
 }
