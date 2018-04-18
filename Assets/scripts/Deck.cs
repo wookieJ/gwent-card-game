@@ -49,7 +49,7 @@ public class Deck : MonoBehaviour
             clone.setPower(baseCard.getCardModel().getPower(cardId));
             // TODO - Improve !!!!!!!!!!!!!
             clone.setGroup(cardId < SWORD_GROUP_AMOUNT ? 1 : cardId < BOW_GROUP_AMOUNT ? 2 : 3);
-            clone.setIndex(cardIndex);
+            clone.setIndex(cardId);
             cardsInDeck.Add(clone);
         }
     }

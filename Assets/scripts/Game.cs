@@ -46,6 +46,8 @@ public class Game : MonoBehaviour
     private GameObject score6Object;
     private GameObject score7Object;
     private GameObject score8Object;
+    private GameObject cardNumber1Object;
+    private GameObject cardNumber2Object;
     private Text score1Text;
     private Text score2Text;
     private Text score3Text;
@@ -54,6 +56,8 @@ public class Game : MonoBehaviour
     private Text score6Text;
     private Text score7Text;
     private Text score8Text;
+    private Text cardNumber1;
+    private Text cardNumber2;
 
     private GameObject buttonObject;
     private Button button;
@@ -91,6 +95,8 @@ public class Game : MonoBehaviour
         score6Object = GameObject.Find("Score6");
         score7Object = GameObject.Find("Score7");
         score8Object = GameObject.Find("Score8");
+        cardNumber1Object = GameObject.Find("cardNumber1");
+        cardNumber2Object = GameObject.Find("cardNumber2");
         score1Text = score1Object.GetComponent<Text>();
         score2Text = score2Object.GetComponent<Text>();
         score3Text = score3Object.GetComponent<Text>();
@@ -99,6 +105,8 @@ public class Game : MonoBehaviour
         score6Text = score6Object.GetComponent<Text>();
         score7Text = score7Object.GetComponent<Text>();
         score8Text = score8Object.GetComponent<Text>();
+        cardNumber1 = cardNumber1Object.GetComponent<Text>();
+        cardNumber2 = cardNumber2Object.GetComponent<Text>();
 
         buttonObject = GameObject.Find("Button");
         button = buttonObject.GetComponent<Button>();
@@ -183,6 +191,11 @@ public class Game : MonoBehaviour
 
     void Update()
     {
+        // Updating numberOfCards
+        // ---------------------------------------------------------------------------------------------------------------
+        cardNumber1.text = player1.getDeck().cardsInDeck.Count.ToString();
+        cardNumber2.text = player2.getDeck().cardsInDeck.Count.ToString();
+
         // Picking card
         // ---------------------------------------------------------------------------------------------------------------
         // vector of actual mouse position
@@ -659,8 +672,15 @@ public class Game : MonoBehaviour
         player2.getHealthDiamond(1).setPosition(playerOneHealthOneVector);
         player2.getHealthDiamond(2).setPosition(playerOneHealthSecondVector);
 
+        // number of cards posiotion replacing
+        Vector3 playerOneNumberOfCardsPosition = cardNumber1.transform.position;
+        cardNumber1.transform.position = cardNumber2.transform.position;
+        cardNumber2.transform.position = playerOneNumberOfCardsPosition;
+
+        // fliping cards
         player1.getDeck().flipGroupCards();
         player2.getDeck().flipGroupCards();
+
         // score position replacing
         Vector3 tempVector = score1Text.transform.position;
         score1Text.transform.position = score2Text.transform.position;
