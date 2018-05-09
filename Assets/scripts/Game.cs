@@ -289,6 +289,7 @@ public class Game : MonoBehaviour
                     }
                 }
             }
+            // Putting Spy cards
             else if (areas.getSword2ColliderBounds().Contains(mouseRelativePosition))
             {
                 Debug.Log("SPY!");
@@ -303,6 +304,7 @@ public class Game : MonoBehaviour
                         Debug.Log("P1!");
                         player2.getDeck().addSpy(activeCard);
                         player1.getDeck().cardsInDeck.Remove(activeCard);
+                        player1.getDeck().addTwoRandomCards();
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
                         if (player1.isPlaying && player2.isPlaying)
@@ -319,6 +321,7 @@ public class Game : MonoBehaviour
                         Debug.Log("P2!");
                         player1.getDeck().addSpy(activeCard);
                         player2.getDeck().cardsInDeck.Remove(activeCard);
+                        player2.getDeck().addTwoRandomCards();
                         activeDeck.disactiveAllInDeck();
                         state = (int)Status.FREE;
                         if (player1.isPlaying && player2.isPlaying)
@@ -510,8 +513,6 @@ public class Game : MonoBehaviour
                     }
                 }
             }
-        
-        
             if (activeDeck.cardsInSwords.Count > 0)
             {
                 Vector3 centerVector = areas.getSwordsCenterVector() + new Vector3(0, -0.1456f, -0.1f);

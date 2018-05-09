@@ -51,7 +51,6 @@ public class Deck : MonoBehaviour
             {
                 cardId = Random.Range(0, FRONTS_NUMBER);
             } while (uniqueValues.Contains(cardId));
-            Debug.Log(cardIndex + " : " + cardId);
             uniqueValues.Add(cardId);
             
             Card clone = Instantiate(baseCard) as Card;
@@ -60,6 +59,26 @@ public class Deck : MonoBehaviour
             clone.setPower(baseCard.getCardModel().getPower(cardId));
             // TODO - Improve !!!!!!!!!!!!!
             //clone.setGroup(cardId < SWORD_GROUP_AMOUNT + SWORD_GOLD_GROUP_AMOUNT ? 1 : cardId < BOW_GROUP_AMOUNT + BOW_GOLD_GROUP_AMOUNT? 2 : 3);
+            clone.setIndex(cardId);
+            clone.setIsSpecial(clone.getCardModel().getIsSpecial(cardId));
+            cardsInDeck.Add(clone);
+        }
+    }
+
+    /// <summary>
+    /// Adding 2 random cards to player's deck
+    /// </summary>
+    /// <param name="whichPlayer"></param>
+    public void addTwoRandomCards()
+    {
+        // TODO - Cards aren't unique!!!!!!!!!!!!!!!!!!!!!
+        for (int i = 0; i < 2; i++)
+        {
+            int cardId = Random.Range(0, FRONTS_NUMBER);
+            Card clone = Instantiate(baseCard) as Card;
+            clone.tag = "CloneCard";
+            clone.setFront(cardId);
+            clone.setPower(baseCard.getCardModel().getPower(cardId));
             clone.setIndex(cardId);
             clone.setIsSpecial(clone.getCardModel().getIsSpecial(cardId));
             cardsInDeck.Add(clone);
