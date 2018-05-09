@@ -166,6 +166,15 @@ public class Card : MonoBehaviour
     }
 
     /// <summary>
+    /// Get is Special status of card
+    /// </summary>
+    /// <returns>special group value of card ([0] - normal, [1] - gold, [2] - spy, [3] - manekin, [4] - destroy, [5] - weather)</returns>
+    public int getIsSpecial()
+    {
+        return this.isSpecial;
+    }
+
+    /// <summary>
     /// Set a isSpecial attribute
     /// </summary>
     /// <param name="isSpecial">true if card is special type</param>

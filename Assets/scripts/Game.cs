@@ -289,117 +289,160 @@ public class Game : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (areas.getSword2ColliderBounds().Contains(mouseRelativePosition))
             {
-                activeDeck.disactiveAllInDeck();
-                activeCard = null;
-                showActiveCard(false);
-                state = (int)Status.FREE;
-            }
-        }
-        // Ending player time, tour
-        // TODO - Change gameStatus
-        // ---------------------------------------------------------------------------------------------------------------
-        if (player1.getDeck().cardsInDeck.Count == 0 && player1.isPlaying)
-        {
-            Debug.Log("Player1 has no cards");
-            player1.isPlaying = false;
-        }
-        if(player2.getDeck().cardsInDeck.Count == 0 && player2.isPlaying)
-        {
-            Debug.Log("Player2 has no cards");
-            player2.isPlaying = false;
-        }
-        if (player1.isPlaying == false && player2.isPlaying == false && gameStatus != (int)GameStatus.END)
-        {
-            player1.updateScore();
-            player2.updateScore();
-            Debug.Log("Both players have no cards");
-            Debug.Log("P1: " + player1.score + ", P2: " + player2.score);
-            // End of tour - check who won, subtract health, set new tour
-            if (player1.score > player2.score)
-            {
-                Debug.Log("player1.score > player2.score");
-                if (player2.health > 0)
+                Debug.Log("SPY!");
+                // For spy card
+                if (state == (int)Status.ACTIVE_CARD && activeCard.getIsSpecial() == 2 && activeCard.getGroup() == (int)CardGroup.SWORD)
                 {
-                    Debug.Log("player2.health > 0");
-                    // Player 1 won the tour
-                    endText.text = "Gracz 1 wygrał!";
-                    player2.health--;
+                    Debug.Log("SPY SWORD OK!");
+                    // TODO - system rozmieszczania kart w grupie
+                    activeCard.setActive(false);
+                    if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
+                    {
+                        Debug.Log("P1!");
+                        player2.getDeck().addSpy(activeCard);
+                        player1.getDeck().cardsInDeck.Remove(activeCard);
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("P2!");
+                        player1.getDeck().addSpy(activeCard);
+                        player2.getDeck().cardsInDeck.Remove(activeCard);
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
+                    }
+                }
+                else
+                {
+                    activeDeck.disactiveAllInDeck();
+                    activeCard = null;
+                    showActiveCard(false);
+                    state = (int)Status.FREE;
+                }
+            }
+            // Ending player time, tour
+            // TODO - Change gameStatus
+            // ---------------------------------------------------------------------------------------------------------------
+            if (player1.getDeck().cardsInDeck.Count == 0 && player1.isPlaying)
+            {
+                Debug.Log("Player1 has no cards");
+                player1.isPlaying = false;
+            }
+            if (player2.getDeck().cardsInDeck.Count == 0 && player2.isPlaying)
+            {
+                Debug.Log("Player2 has no cards");
+                player2.isPlaying = false;
+            }
+            if (player1.isPlaying == false && player2.isPlaying == false && gameStatus != (int)GameStatus.END)
+            {
+                player1.updateScore();
+                player2.updateScore();
+                Debug.Log("Both players have no cards");
+                Debug.Log("P1: " + player1.score + ", P2: " + player2.score);
+                // End of tour - check who won, subtract health, set new tour
+                if (player1.score > player2.score)
+                {
+                    Debug.Log("player1.score > player2.score");
+                    if (player2.health > 0)
+                    {
+                        Debug.Log("player2.health > 0");
+                        // Player 1 won the tour
+                        endText.text = "Gracz 1 wygrał!";
+                        player2.health--;
+                        player2.updateHealthDiamonds();
+                    }
+                    if (player2.health == 0)
+                    {
+                        // Player 1 won the game
+                        player2.health = -1;
+                    }
+                }
+                else if (player1.score < player2.score)
+                {
+                    Debug.Log("player1.score <= player2.score");
+                    if (player1.health > 0)
+                    {
+                        Debug.Log("player1.health > 0");
+                        // Player 2 won the tour
+                        endText.text = "Gracz 2 wygrał!";
+                        player1.health--;
+                        player1.updateHealthDiamonds();
+                    }
+                    if (player1.health == 0)
+                    {
+                        // Player 2 won the game
+                        player1.health = -1;
+                    }
+                }
+                else
+                {
+                    if (player1.health > 0)
+                        player1.health--;
+                    if (player2.health > 0)
+                        player2.health--;
+                    endText.text = "Remis!";
+                    if (player1.health == 0)
+                        player1.health = -1;
+                    if (player2.health == 0)
+                        player2.health = -1;
+
+                    player1.updateHealthDiamonds();
                     player2.updateHealthDiamonds();
                 }
-                if(player2.health == 0)
+
+                // game over
+                if (player1.health == -1 && player2.health == -1)
                 {
-                    // Player 1 won the game
-                    player2.health = -1;
+                    Debug.Log("REMIS!");
+                    gameStatus = (int)GameStatus.END;
+
+                    // TODO - zawsze przy remisie PLAYER1 - może losować?
+                    //activePlayerNumber = (int)PlayerNumber.PLAYER1;
                 }
-            }
-            else if (player1.score < player2.score)
-            {
-                Debug.Log("player1.score <= player2.score");
-                if (player1.health > 0)
+                else if (player1.health == -1)
                 {
-                    Debug.Log("player1.health > 0");
-                    // Player 2 won the tour
-                    endText.text = "Gracz 2 wygrał!";
-                    player1.health--;
-                    player1.updateHealthDiamonds();
+                    Debug.Log("P1 WON!");
+                    gameStatus = (int)GameStatus.END;
+                    // activePlayerNumber = (int)PlayerNumber.PLAYER1;
                 }
-                if(player1.health == 0)
+                else if (player2.health == -1)
                 {
-                    // Player 2 won the game
-                    player1.health = -1;
+                    Debug.Log("P2 WON!");
+                    gameStatus = (int)GameStatus.END;
+                    //  activePlayerNumber = (int)PlayerNumber.PLAYER2;
                 }
-            }
-            else
-            {
-                if (player1.health > 0)
-                    player1.health--;
-                if (player2.health > 0)
-                    player2.health--;
-                endText.text = "Remis!";
-                if (player1.health == 0)
-                    player1.health = -1;
-                if (player2.health == 0)
-                    player2.health = -1;
 
-                player1.updateHealthDiamonds();
-                player2.updateHealthDiamonds();
-            }
+                if (gameStatus != (int)GameStatus.END)
+                {
+                    Debug.Log("End tour()");
+                    endTour();
+                }
+                else
+                {
+                    gameOver();
 
-            // game over
-            if (player1.health == -1 && player2.health == -1)
-            {
-                Debug.Log("REMIS!");
-                gameStatus = (int)GameStatus.END;
-
-                // TODO - zawsze przy remisie PLAYER1 - może losować?
-                //activePlayerNumber = (int)PlayerNumber.PLAYER1;
-            }
-            else if (player1.health == -1)
-            {
-                Debug.Log("P1 WON!");
-                gameStatus = (int)GameStatus.END;
-               // activePlayerNumber = (int)PlayerNumber.PLAYER1;
-            }
-            else if (player2.health == -1)
-            {
-                Debug.Log("P2 WON!");
-                gameStatus = (int)GameStatus.END;
-              //  activePlayerNumber = (int)PlayerNumber.PLAYER2;
-            }
-
-            if (gameStatus != (int)GameStatus.END)
-            {
-                Debug.Log("End tour()");
-                endTour();
-            }
-            else
-            {
-                gameOver();
-                
-                //Debug.Log("Deleting!");
-               // deleteAllCardClones();
+                    //Debug.Log("Deleting!");
+                    // deleteAllCardClones();
+                }
             }
         }
     }

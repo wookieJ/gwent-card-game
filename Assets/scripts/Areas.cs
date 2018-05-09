@@ -10,6 +10,7 @@ public class Areas : MonoBehaviour {
     BoxCollider trebuchetCollider;
     BoxCollider special1Collider;
     BoxCollider special2Collider;
+    BoxCollider sword2Collider;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class Areas : MonoBehaviour {
         trebuchetCollider = colliders[(int)CardGroup.TREBUCHET];
         special1Collider = colliders[(int)CardGroup.SPECIAL1];
         special2Collider = colliders[(int)CardGroup.SPECIAL2];
+        sword2Collider = colliders[(int)CardGroup.SWORD2];
     }
 
     /// <summary>
@@ -57,6 +59,33 @@ public class Areas : MonoBehaviour {
     public Bounds getTrebuchetColliderBounds()
     {
         return trebuchetCollider.bounds;
+    }
+
+    /// <summary>
+    /// Get special 1 group collision bounds
+    /// </summary>
+    /// <returns>Special 1 group bounds</returns>
+    public Bounds getSpecial1ColliderBounds()
+    {
+        return special1Collider.bounds;
+    }
+
+    /// <summary>
+    /// Get special 2 group collision bounds
+    /// </summary>
+    /// <returns>Special 2 group bounds</returns>
+    public Bounds getSpecial2ColliderBounds()
+    {
+        return special2Collider.bounds;
+    }
+
+    /// <summary>
+    /// Get sword in player 2 group collision bounds
+    /// </summary>
+    /// <returns>Sword in player 2 group bounds</returns>
+    public Bounds getSword2ColliderBounds()
+    {
+        return sword2Collider.bounds;
     }
 
     /// <summary>
@@ -116,5 +145,5 @@ public class Areas : MonoBehaviour {
     /// <summary>
     /// Defined typed of card groups
     /// </summary>
-    private enum CardGroup { DECK, SWORD, BOW, TREBUCHET, SPECIAL1, SPECIAL2 };
+    private enum CardGroup { DECK, SWORD, BOW, TREBUCHET, SPECIAL1, SPECIAL2, SWORD2};
 }
