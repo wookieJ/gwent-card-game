@@ -143,6 +143,15 @@ public class Areas : MonoBehaviour {
     }
 
     /// <summary>
+    /// Get sword 2 box collider center vector
+    /// </summary>
+    /// <returns>sword 2 box collider center vector</returns>
+    public Vector3 getSword2CenterVector()
+    {
+        return sword2Collider.center;
+    }
+
+    /// <summary>
     /// Defined typed of card groups
     /// </summary>
     private enum CardGroup { DECK, SWORD, BOW, TREBUCHET, SPECIAL1, SPECIAL2, SWORD2};

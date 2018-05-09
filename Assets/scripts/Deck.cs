@@ -133,7 +133,7 @@ public class Deck : MonoBehaviour
     /// <param name="card">spy card we want to add</param>
     public void addSpy(Card card)
     {
-        Vector3 newVector = new Vector3(-2.53f + cardsInSwords.Count * 1.05f, -0.19f, -0.1f);
+        Vector3 newVector = new Vector3(-2.53f + cardsInSwords.Count * 1.05f, 1.66495f, -0.1f);
         card.transform.position = newVector;
 
         cardsInSwords.Add(card);

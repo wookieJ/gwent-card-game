@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cardGameUnity", "Assembly-CSharp.csproj", "{ACC7A853-7FEC-F516-85EE-EDA709DBC469}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cardGameUnity", "cardGameUnity.csproj", "{B8DE1880-647A-3248-9CA3-90A505E9E78F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ACC7A853-7FEC-F516-85EE-EDA709DBC469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACC7A853-7FEC-F516-85EE-EDA709DBC469}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACC7A853-7FEC-F516-85EE-EDA709DBC469}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACC7A853-7FEC-F516-85EE-EDA709DBC469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8DE1880-647A-3248-9CA3-90A505E9E78F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8DE1880-647A-3248-9CA3-90A505E9E78F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8DE1880-647A-3248-9CA3-90A505E9E78F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8DE1880-647A-3248-9CA3-90A505E9E78F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

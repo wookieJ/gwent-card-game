@@ -617,6 +617,78 @@ public class Game : MonoBehaviour
                 }
             }
         }
+        // For spy cards - PLAYER 1
+        if (activePlayerNumber == (int)PlayerNumber.PLAYER1 && player2.getDeck().cardsInSwords.Count > 0)
+        {
+            Vector3 centerVector = areas.getSword2CenterVector() + new Vector3(0, -0.1456f, -0.1f);
+
+            // For odd number of cards
+            if (player2.getDeck().cardsInSwords.Count % 2 == 1)
+            {
+                int j = 1;
+                player2.getDeck().cardsInSwords[0].transform.position = centerVector;
+
+                for (int i = 1; i < player2.getDeck().cardsInSwords.Count; i++)
+                {
+                    player2.getDeck().cardsInSwords[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 0)
+                        j++;
+                }
+            }
+            else
+            {
+                int j = 1;
+                player2.getDeck().cardsInSwords[0].transform.position = centerVector + new Vector3(0.525f, 0, 0);
+                player2.getDeck().cardsInSwords[1].transform.position = centerVector + new Vector3(-0.525f, 0, 0);
+
+                for (int i = 2; i < player2.getDeck().cardsInSwords.Count; i++)
+                {
+                    player2.getDeck().cardsInSwords[i].transform.position = new Vector3(centerVector.x + j * 1.05f + Math.Sign(j) * 0.525f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 1)
+                        j++;
+                }
+            }
+        }
+        // For spy cards - PLAYER 2
+        if (activePlayerNumber == (int)PlayerNumber.PLAYER2 && player1.getDeck().cardsInSwords.Count > 0)
+        {
+            Vector3 centerVector = areas.getSword2CenterVector() + new Vector3(0, -0.1456f, -0.1f);
+
+            // For odd number of cards
+            if (player1.getDeck().cardsInSwords.Count % 2 == 1)
+            {
+                int j = 1;
+                player1.getDeck().cardsInSwords[0].transform.position = centerVector;
+
+                for (int i = 1; i < player1.getDeck().cardsInSwords.Count; i++)
+                {
+                    player1.getDeck().cardsInSwords[i].transform.position = new Vector3(centerVector.x + j * 1.05f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 0)
+                        j++;
+                }
+            }
+            else
+            {
+                int j = 1;
+                player1.getDeck().cardsInSwords[0].transform.position = centerVector + new Vector3(0.525f, 0, 0);
+                player1.getDeck().cardsInSwords[1].transform.position = centerVector + new Vector3(-0.525f, 0, 0);
+
+                for (int i = 2; i < player1.getDeck().cardsInSwords.Count; i++)
+                {
+                    player1.getDeck().cardsInSwords[i].transform.position = new Vector3(centerVector.x + j * 1.05f + Math.Sign(j) * 0.525f, centerVector.y, centerVector.z);
+
+                    j *= -1;
+                    if (i % 2 == 1)
+                        j++;
+                }
+            }
+        }
     }
 
     /// <summary>
