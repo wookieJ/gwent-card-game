@@ -20,8 +20,8 @@ public class Deck : MonoBehaviour
     public float startZ = -0.1f;
     public float stepX = 1.05f;
 
-    private static int FRONTS_NUMBER = 21;
-    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 10;
+    private static int FRONTS_NUMBER = 35;
+    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 9;
     private static int SWORD_GROUP_AMOUNT = 7;
     private static int SWORD_GOLD_GROUP_AMOUNT = 5;
     private static int BOW_GROUP_AMOUNT = 5;

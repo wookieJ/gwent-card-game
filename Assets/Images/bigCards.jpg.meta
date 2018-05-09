@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2e887d3164977184492008399f306d70
-timeCreated: 1524070201
+guid: b7638ccaefc05984a83d8f0cc6511d40
+timeCreated: 1525897478
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -25,6 +25,20 @@ TextureImporter:
     21300036: bigCards_18
     21300038: bigCards_19
     21300040: bigCards_20
+    21300042: bigCards_21
+    21300044: bigCards_22
+    21300046: bigCards_23
+    21300048: bigCards_24
+    21300050: bigCards_25
+    21300052: bigCards_26
+    21300054: bigCards_27
+    21300056: bigCards_28
+    21300058: bigCards_29
+    21300060: bigCards_30
+    21300062: bigCards_31
+    21300064: bigCards_32
+    21300066: bigCards_33
+    21300068: bigCards_34
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -115,7 +129,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -129,7 +143,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 218
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -143,7 +157,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 436
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -157,7 +171,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 654
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -171,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 872
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -185,7 +199,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1090
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -199,7 +213,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1308
-        y: 824
+        y: 1648
         width: 218
         height: 412
       alignment: 0
@@ -213,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -227,7 +241,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 218
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -241,7 +255,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 436
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -255,7 +269,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 654
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -269,7 +283,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 872
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -283,7 +297,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1090
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -297,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1308
-        y: 412
+        y: 1236
         width: 218
         height: 412
       alignment: 0
@@ -311,7 +325,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 824
         width: 218
         height: 412
       alignment: 0
@@ -325,7 +339,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 218
-        y: 0
+        y: 824
         width: 218
         height: 412
       alignment: 0
@@ -339,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 436
-        y: 0
+        y: 824
         width: 218
         height: 412
       alignment: 0
@@ -353,7 +367,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 654
-        y: 0
+        y: 824
         width: 218
         height: 412
       alignment: 0
@@ -367,7 +381,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 872
-        y: 0
+        y: 824
         width: 218
         height: 412
       alignment: 0
@@ -381,7 +395,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1090
-        y: 0
+        y: 824
         width: 218
         height: 412
       alignment: 0
@@ -392,6 +406,202 @@ TextureImporter:
       tessellationDetail: 0
     - serializedVersion: 2
       name: bigCards_20
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 824
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_22
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_23
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_24
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_25
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_26
+      rect:
+        serializedVersion: 2
+        x: 1090
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_27
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 412
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_29
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 0
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_30
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 0
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_31
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 0
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_32
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 0
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_33
+      rect:
+        serializedVersion: 2
+        x: 1090
+        y: 0
+        width: 218
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bigCards_34
       rect:
         serializedVersion: 2
         x: 1308

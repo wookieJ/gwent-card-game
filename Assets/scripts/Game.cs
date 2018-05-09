@@ -292,16 +292,13 @@ public class Game : MonoBehaviour
             // Putting Spy cards
             else if (areas.getSword2ColliderBounds().Contains(mouseRelativePosition))
             {
-                Debug.Log("SPY!");
                 // For spy card
                 if (state == (int)Status.ACTIVE_CARD && activeCard.getIsSpecial() == 2 && activeCard.getGroup() == (int)CardGroup.SWORD)
                 {
-                    Debug.Log("SPY SWORD OK!");
                     // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
                     if (activePlayerNumber == (int)PlayerNumber.PLAYER1)
                     {
-                        Debug.Log("P1!");
                         player2.getDeck().addSpy(activeCard);
                         player1.getDeck().cardsInDeck.Remove(activeCard);
                         player1.getDeck().addTwoRandomCards();
@@ -318,7 +315,6 @@ public class Game : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("P2!");
                         player1.getDeck().addSpy(activeCard);
                         player2.getDeck().cardsInDeck.Remove(activeCard);
                         player2.getDeck().addTwoRandomCards();

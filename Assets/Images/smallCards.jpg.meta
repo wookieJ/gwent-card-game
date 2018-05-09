@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b87b51629e07a33478a0958be819181b
-timeCreated: 1524070575
+guid: 1cea70a66d57cdb46b80b71e057a5ccf
+timeCreated: 1525898272
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -25,6 +25,20 @@ TextureImporter:
     21300036: smallCards_18
     21300038: smallCards_19
     21300040: smallCards_20
+    21300042: smallCards_21
+    21300044: smallCards_22
+    21300046: smallCards_23
+    21300048: smallCards_24
+    21300050: smallCards_25
+    21300052: smallCards_26
+    21300054: smallCards_27
+    21300056: smallCards_28
+    21300058: smallCards_29
+    21300060: smallCards_30
+    21300062: smallCards_31
+    21300064: smallCards_32
+    21300066: smallCards_33
+    21300068: smallCards_34
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -115,7 +129,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -129,7 +143,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -143,7 +157,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -157,7 +171,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -171,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -185,7 +199,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -199,7 +213,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
-        y: 290
+        y: 580
         width: 100
         height: 145
       alignment: 0
@@ -213,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -227,7 +241,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -241,7 +255,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -255,7 +269,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -269,7 +283,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -283,7 +297,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -297,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 600
-        y: 145
+        y: 435
         width: 100
         height: 145
       alignment: 0
@@ -311,7 +325,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 290
         width: 100
         height: 145
       alignment: 0
@@ -325,7 +339,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 0
+        y: 290
         width: 100
         height: 145
       alignment: 0
@@ -339,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 0
+        y: 290
         width: 100
         height: 145
       alignment: 0
@@ -353,7 +367,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 0
+        y: 290
         width: 100
         height: 145
       alignment: 0
@@ -367,7 +381,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 400
-        y: 0
+        y: 290
         width: 100
         height: 145
       alignment: 0
@@ -381,7 +395,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 500
-        y: 0
+        y: 290
         width: 100
         height: 145
       alignment: 0
@@ -392,6 +406,202 @@ TextureImporter:
       tessellationDetail: 0
     - serializedVersion: 2
       name: smallCards_20
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 290
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_22
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_23
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_24
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_25
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_26
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_27
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 145
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_29
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_30
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_31
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_32
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_33
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 100
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: smallCards_34
       rect:
         serializedVersion: 2
         x: 600
