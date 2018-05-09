@@ -20,11 +20,14 @@ public class Deck : MonoBehaviour
     public float startZ = -0.1f;
     public float stepX = 1.05f;
 
-    private static int FRONTS_NUMBER = 2;
+    private static int FRONTS_NUMBER = 21;
     private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 10;
-    private static int SWORD_GROUP_AMOUNT = 2;
-    private static int BOW_GROUP_AMOUNT = 0;
-    private static int TREBUCHET_GROUP_AMOUNT = 0;
+    private static int SWORD_GROUP_AMOUNT = 7;
+    private static int SWORD_GOLD_GROUP_AMOUNT = 5;
+    private static int BOW_GROUP_AMOUNT = 5;
+    private static int BOW_GOLD_GROUP_AMOUNT = 1;
+    private static int TREBUCHET_GROUP_AMOUNT = 3;
+    private static int TREBUCHET_GOLD_GROUP_AMOUNT = 0;
 
     void Awake()
     {
@@ -38,18 +41,27 @@ public class Deck : MonoBehaviour
     /// <param name="numberOfCards">how many cards have to be added to player's deck</param>
     public void buildDeck(int numberOfCards)
     {
+        List<int> uniqueValues = new List<int>();
+
         for (int cardIndex = 0; cardIndex < numberOfCards; cardIndex++)
         {
-            int cardId = Random.Range(0, FRONTS_NUMBER);
-            Debug.Log(cardId);
+            // For unique cards set
+            int cardId;
+            do
+            {
+                cardId = Random.Range(0, FRONTS_NUMBER);
+            } while (uniqueValues.Contains(cardId));
+            Debug.Log(cardIndex + " : " + cardId);
+            uniqueValues.Add(cardId);
             
             Card clone = Instantiate(baseCard) as Card;
             clone.tag = "CloneCard";
             clone.setFront(cardId);
             clone.setPower(baseCard.getCardModel().getPower(cardId));
             // TODO - Improve !!!!!!!!!!!!!
-            clone.setGroup(cardId < SWORD_GROUP_AMOUNT ? 1 : cardId < BOW_GROUP_AMOUNT ? 2 : 3);
+            //clone.setGroup(cardId < SWORD_GROUP_AMOUNT + SWORD_GOLD_GROUP_AMOUNT ? 1 : cardId < BOW_GROUP_AMOUNT + BOW_GOLD_GROUP_AMOUNT? 2 : 3);
             clone.setIndex(cardId);
+            clone.setIsSpecial(clone.getCardModel().getIsSpecial(cardId));
             cardsInDeck.Add(clone);
         }
     }

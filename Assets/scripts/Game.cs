@@ -6,10 +6,11 @@ using System;
 // TODO - check if SetActive method of GameObject objects works - yes? Correct system of transparent object
 // TODO - areas size matched to deck size so player can disactivate card clicking into deck area at the edges
 
-// TODO - Do not flip deck's cards
 // TODO - Drag and drop system
-// TODO - Text
 // TODO - Allign cards with value - increasing. Sorting method to replace cards.
+// TODO - Switching players canvas - image like in real gwent
+// TODO - Hide active card after second click on it
+// TODO - BUG when players put all cards in first tour
 
 public class Game : MonoBehaviour
 {
@@ -707,7 +708,7 @@ public class Game : MonoBehaviour
     {
         // TODO - usunąć operację modulo!
         if(ifShow)
-            activeShowingCard.setBigFront(activeCard.getIndex() % 2 + 1);
+            activeShowingCard.setBigFront(activeCard.getIndex() + 1); // +1 because 0 means null
         else
             activeShowingCard.setBigFront(0);
     }

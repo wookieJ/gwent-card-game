@@ -6,9 +6,10 @@ public class Card : MonoBehaviour
 {
     private string cardName;
     private int power;
-    private int index;
-    private int group;
+    public int index;
+    public int group;
     private bool active = false;
+    public int isSpecial;
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D cardColider;
@@ -68,6 +69,7 @@ public class Card : MonoBehaviour
     public void setIndex(int index)
     {
         this.index = index;
+        this.group = cardModel.groups[index];
     }
 
     /// <summary>
@@ -164,6 +166,15 @@ public class Card : MonoBehaviour
     }
 
     /// <summary>
+    /// Set a isSpecial attribute
+    /// </summary>
+    /// <param name="isSpecial">true if card is special type</param>
+    public void setIsSpecial(int isSpecial)
+    {
+        this.isSpecial = isSpecial;
+    }
+
+    /// <summary>
     /// Flip card
     /// </summary>
     /// <param name="x">true if you want to flip in x axis</param>
@@ -191,6 +202,6 @@ public class Card : MonoBehaviour
     /// </summary>
     public void mirrorTransform()
     {
-        transform.position = new Vector3(transform.position.x * -1 + 4.39f, transform.position.y * -1 + 1.55f, transform.position.z);
+        transform.position = new Vector3(transform.position.x * -1 + 4.39f, transform.position.y * -1 + 1.435f, transform.position.z);
     }
 }
