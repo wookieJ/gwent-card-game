@@ -10,13 +10,21 @@ public class CardModel : MonoBehaviour
     public int[] powers;
     public int[] groups;
     public int[] isSpecial;
+
     /* 
-     * isSpecial table of values:
+     * > isSpecial table of values:
      * [1] - gold card
      * [2] - spy card
      * [3] - manekin card
      * [4] - destroy card
      * [5] - weather card
+     *
+     * > Power table of values:
+     * [0+] - normal
+     * [-1] - sword weather
+     * [-2] - bow weather
+     * [-3] - trebuchet weather
+     * [-4] - clean weather
      */
 
     public Sprite getSmallFront(int index)

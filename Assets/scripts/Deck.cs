@@ -13,6 +13,7 @@ public class Deck : MonoBehaviour
     public List<Card> cardsInBows = new List<Card>(); // list of cards in bow group
     public List<Card> cardsInTrebuchets = new List<Card>(); // list of cards in catapulte group
     public List<Card> cardsInDeaths = new List<Card>(); // burned or dead cards
+    public List<Card> cardsSpecial = new List<Card>(); // special cards
 
     // TODO - dynamic layout cards system
     public float startX = -6.53f;
@@ -21,7 +22,8 @@ public class Deck : MonoBehaviour
     public float stepX = 1.05f;
 
     private static int FRONTS_NUMBER = 35;
-    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 9;
+    // TODO - remove max amount of cards in each range group
+    private static int MAX_NUMBER_OF_CARDS_IN_GROUP = 7;
     private static int SWORD_GROUP_AMOUNT = 7;
     private static int SWORD_GOLD_GROUP_AMOUNT = 5;
     private static int BOW_GROUP_AMOUNT = 5;
@@ -57,8 +59,6 @@ public class Deck : MonoBehaviour
             clone.tag = "CloneCard";
             clone.setFront(cardId);
             clone.setPower(baseCard.getCardModel().getPower(cardId));
-            // TODO - Improve !!!!!!!!!!!!!
-            //clone.setGroup(cardId < SWORD_GROUP_AMOUNT + SWORD_GOLD_GROUP_AMOUNT ? 1 : cardId < BOW_GROUP_AMOUNT + BOW_GOLD_GROUP_AMOUNT? 2 : 3);
             clone.setIndex(cardId);
             clone.setIsSpecial(clone.getCardModel().getIsSpecial(cardId));
             cardsInDeck.Add(clone);
@@ -125,6 +125,14 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public IEnumerable<Card> getSpecial1Cards()
+    {
+        foreach (Card c in cardsSpecial)
+        {
+            yield return c;
+        }
+    }
+
     /// <summary>
     /// adding card to sword group
     /// </summary>
@@ -156,6 +164,16 @@ public class Deck : MonoBehaviour
         card.transform.position = newVector;
 
         cardsInSwords.Add(card);
+    }
+
+    /// <summary>
+    /// Adding weather and destroy cards to special box
+    /// </summary>
+    /// <param name="card">Crd we wnt to add</param>
+    public void addToSpecial(Card card)
+    {        
+        cardsSpecial.Add(card);
+        cardsInDeck.Remove(card);
     }
 
     /// <summary>
@@ -228,6 +246,37 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// Sending card to death list
+    /// </summary>
+    /// <param name="card">card we want to send</param>
+    /// <returns>true if succeeded</returns>
+    public bool sendCardToDeathList(Card card)
+    {
+        bool ifSucceeded = false;
+
+        cardsInDeaths.Add(card);
+        if(card.getGroup() == (int)CardGroup.SWORD)
+            ifSucceeded = cardsInSwords.Remove(card);
+        if (card.getGroup() == (int)CardGroup.BOW)
+            ifSucceeded = cardsInBows.Remove(card);
+        if (card.getGroup() == (int)CardGroup.TREBUCHET)
+            ifSucceeded = cardsInTrebuchets.Remove(card);
+
+        Vector3 player1DeathAreaVector = new Vector3(8.51f, -4.6f, -0.1f);
+        card.transform.position = player1DeathAreaVector;
+        
+        float x = card.transform.position.x;
+        float y = card.transform.position.y;
+        float z = card.transform.position.z;
+
+        card.transform.position = new Vector3(x, y * -1f, z);
+        
+        
+
+        return ifSucceeded;
+    }
+
+    /// <summary>
     /// disactivating cards in deck
     /// </summary>
     public void disactiveAllInDeck()
@@ -243,6 +292,44 @@ public class Deck : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Removing card with highest power value
+    /// </summary>
+    public void removeMaxPowerCard()
+    {
+        int maxPower = 0;
+        Card maxCard = null;
+        foreach (Card card in cardsInSwords)
+        {
+            // checing if card is not a gold one
+            if (card.getPower() > maxPower && card.getIsSpecial() != 1)
+            {
+                maxPower = card.getPower();
+                maxCard = card;
+            }
+        }
+        foreach (Card card in cardsInBows)
+        {
+            // checing if card is not a gold one
+            if (card.getPower() > maxPower && card.getIsSpecial() != 1)
+            {
+                maxPower = card.getPower();
+                maxCard = card;
+            }
+        }
+        foreach (Card card in cardsInTrebuchets)
+        {
+            // checing if card is not a gold one
+            if (card.getPower() > maxPower && card.getIsSpecial() != 1)
+            {
+                maxPower = card.getPower();
+                maxCard = card;
+            }
+        }
+        if (maxCard != null)
+            sendCardToDeathList(maxCard);
     }
 
     /// <summary>
@@ -303,6 +390,14 @@ public class Deck : MonoBehaviour
         {
             //card.flip(false, true);
 
+            float x = card.transform.position.x;
+            float y = card.transform.position.y;
+            float z = card.transform.position.z;
+
+            card.transform.position = new Vector3(x, y * -1f, z);
+        }
+        foreach(Card card in getSpecial1Cards())
+        {
             float x = card.transform.position.x;
             float y = card.transform.position.y;
             float z = card.transform.position.z;

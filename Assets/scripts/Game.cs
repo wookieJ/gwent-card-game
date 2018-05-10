@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
@@ -336,6 +337,41 @@ public class Game : MonoBehaviour
                     activeCard = null;
                     showActiveCard(false);
                     state = (int)Status.FREE;
+                }
+            }
+            else if (areas.getSpecial1ColliderBounds().Contains(mouseRelativePosition))
+            {
+                if (state == (int)Status.ACTIVE_CARD)
+                {
+                    activeCard.setActive(false);
+                    activeCard.transform.position = areas.getSpecial1CenterVector();
+                    activeDeck.addToSpecial(activeCard);
+
+                    // destroy
+                    if(activeCard.getIsSpecial() == 4)
+                    {
+                        if(activePlayerNumber == (int)PlayerNumber.PLAYER1)
+                        {
+                            player2.getDeck().removeMaxPowerCard();
+                        }
+                        else
+                            player1.getDeck().removeMaxPowerCard();
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
+                    }
+                    // weather
+                    else if(activeCard.getIsSpecial() == 5)
+                    {
+
+                    }
                 }
             }
             // Ending player time, tour
