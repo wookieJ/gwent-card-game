@@ -224,10 +224,41 @@ public class Game : MonoBehaviour
                     }
                 }
             }
+            // manekin card on swords
+            if (areas.getSwordColliderBounds().Contains(mouseRelativePosition) && state == (int)Status.ACTIVE_CARD && activeCard.getIsSpecial() == (int)TypeOfCard.MANEKIN)
+            {
+                foreach (Card c in activeDeck.getSwordCards())
+                {
+                    if (c.getBounds().Contains(mouseRelativePosition) && c.getIsSpecial() != (int)TypeOfCard.GOLD && c.getIsSpecial() != (int)TypeOfCard.GOLD_SPY && c.getIsSpecial() != (int)TypeOfCard.MANEKIN)
+                    {
+                        Debug.Log("Manekin target!");
+                        activeCard.setActive(false);
+                        activeDeck.moveCardToDeckFromSwords(c);
+                        if (activeDeck.addCardToSwords(activeCard) == true)
+                        {
+                            activeDeck.disactiveAllInDeck();
+                            state = (int)Status.FREE;
+
+                            if (player1.isPlaying && player2.isPlaying)
+                            {
+                                Debug.Log("switchPlayer()");
+                                switchPlayer();
+                            }
+                            else
+                            {
+                                reorganizeGroup();
+                                state = (int)Status.FREE;
+                                showActiveCard(false);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
             // click on card sword group
             else if (areas.getSwordColliderBounds().Contains(mouseRelativePosition))
             {
-                if (state == (int)Status.ACTIVE_CARD && activeCard.getGroup() == (int)CardGroup.SWORD)
+                if (state == (int)Status.ACTIVE_CARD && activeCard.getGroup() == (int)CardGroup.SWORD && activeCard.getIsSpecial() != (int)TypeOfCard.SPY  && activeCard.getIsSpecial() != (int)TypeOfCard.GOLD_SPY)
                 {
                     // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
@@ -294,7 +325,7 @@ public class Game : MonoBehaviour
             else if (areas.getSword2ColliderBounds().Contains(mouseRelativePosition))
             {
                 // For spy card
-                if (state == (int)Status.ACTIVE_CARD && activeCard.getIsSpecial() == 2 && activeCard.getGroup() == (int)CardGroup.SWORD)
+                if (state == (int)Status.ACTIVE_CARD && (activeCard.getIsSpecial() == (int)TypeOfCard.SPY || activeCard.getIsSpecial() == (int)TypeOfCard.GOLD_SPY) && activeCard.getGroup() == (int)CardGroup.SWORD)
                 {
                     // TODO - system rozmieszczania kart w grupie
                     activeCard.setActive(false);
@@ -341,7 +372,7 @@ public class Game : MonoBehaviour
             }
             else if (areas.getSpecial1ColliderBounds().Contains(mouseRelativePosition))
             {
-                if (state == (int)Status.ACTIVE_CARD)
+                if (state == (int)Status.ACTIVE_CARD && (activeCard.getIsSpecial() == (int)TypeOfCard.DESTROY || activeCard.getIsSpecial() == (int)TypeOfCard.WEATHER))
                 {
                     activeCard.setActive(false);
                     activeCard.transform.position = areas.getSpecial1CenterVector();
@@ -738,6 +769,11 @@ public class Game : MonoBehaviour
     /// Defined game status
     /// </summary>
     private enum GameStatus { END, TOUR1, TOUR2, TOUR3 };
+    
+    /// <summary>
+    /// Defined type of card
+    /// </summary>
+    private enum TypeOfCard { NORMAL, GOLD, SPY, MANEKIN, DESTROY, WEATHER , GOLD_SPY};
 
     /// <summary>
     /// Switch player - update active deck
@@ -785,7 +821,7 @@ public class Game : MonoBehaviour
 
         //giveUpButtonObject.SetActive(false);
         //playerDownNameTextObject.SetActive(false);
-       // playerUpNameTextObject.SetActive(false);
+        // playerUpNameTextObject.SetActive(false);
 
         button.transform.position = new Vector3(0, 0, -1f);
 

@@ -18,6 +18,7 @@ public class CardModel : MonoBehaviour
      * [3] - manekin card
      * [4] - destroy card
      * [5] - weather card
+     * [6] - gold spy
      *
      * > Power table of values:
      * [0+] - normal

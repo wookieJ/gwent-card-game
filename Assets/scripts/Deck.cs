@@ -155,6 +155,17 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// adding card from swords to deck
+    /// </summary>
+    /// <param name="card">card we want to move</param>
+    /// <returns>true if operation succeeded</returns>
+    public bool moveCardToDeckFromSwords(Card card)
+    {
+        cardsInDeck.Add(card);
+        return cardsInSwords.Remove(card);
+    }
+
+    /// <summary>
     /// Adding spy card to opponent sword deck
     /// </summary>
     /// <param name="card">spy card we want to add</param>
