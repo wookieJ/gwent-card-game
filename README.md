@@ -1,4 +1,34 @@
 # gwent-card-game
-gwent like game written in C#.
+game written in C# stylized and modeled on the Gwent game.
 
-<img src="../master/Assets/Images/screen.PNG" width="65%" height="65%">
+<div style="text-align:center"><img src="../master/Assets/Images/screen.PNG"></div>
+
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+In puropse of cloning repository use below command
+
+```
+git clone https://github.com/wookieJ/gwent-card-game.git
+```
+
+### Installing
+
+To install and run application you need Unity.
+In purpose of producing executable file in Unity choose "File -> Build settings..."
+
+<div style="text-align:center"><img src="../master/Assets/Images/build.PNG"></div>
+
+Choose "build" for executable file producing or "build and run" for also running it after building.
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Unity](https://unity3d.com/) - Cross-platform game engine developed by Unity Technologies.
