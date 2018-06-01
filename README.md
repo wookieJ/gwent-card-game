@@ -25,10 +25,6 @@ In purpose of producing executable file in Unity choose "File -> Build settings.
 
 Choose "build" for executable file producing or "build and run" for also running it after building.
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * [Unity](https://unity3d.com/) - Cross-platform game engine developed by Unity Technologies.
