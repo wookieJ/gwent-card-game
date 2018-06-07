@@ -5,11 +5,12 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     private string cardName;
-    private int power;
+    public int power;
     public int index;
     public int group;
     private bool active = false;
     public int isSpecial;
+    public bool weatherEffect = false;
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D cardColider;

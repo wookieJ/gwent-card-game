@@ -13,7 +13,7 @@ public class Deck : MonoBehaviour
     public List<Card> cardsInBows = new List<Card>(); // list of cards in bow group
     public List<Card> cardsInTrebuchets = new List<Card>(); // list of cards in catapulte group
     public List<Card> cardsInDeaths = new List<Card>(); // burned or dead cards
-    public List<Card> cardsSpecial = new List<Card>(); // special cards
+    public List<Card> cardsInSpecial = new List<Card>(); // special cards
 
     // TODO - dynamic layout cards system
     public float startX = -6.53f;
@@ -125,9 +125,9 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public IEnumerable<Card> getSpecial1Cards()
+    public IEnumerable<Card> getSpecialCards()
     {
-        foreach (Card c in cardsSpecial)
+        foreach (Card c in cardsInSpecial)
         {
             yield return c;
         }
@@ -166,6 +166,28 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// adding card from bows to deck
+    /// </summary>
+    /// <param name="card">card we want to move</param>
+    /// <returns>true if operation succeeded</returns>
+    public bool moveCardToDeckFromBows(Card card)
+    {
+        cardsInDeck.Add(card);
+        return cardsInBows.Remove(card);
+    }
+
+    /// <summary>
+    /// adding card from trebuchets to deck
+    /// </summary>
+    /// <param name="card">card we want to move</param>
+    /// <returns>true if operation succeeded</returns>
+    public bool moveCardToDeckFromTrebuchets(Card card)
+    {
+        cardsInDeck.Add(card);
+        return cardsInTrebuchets.Remove(card);
+    }
+
+    /// <summary>
     /// Adding spy card to opponent sword deck
     /// </summary>
     /// <param name="card">spy card we want to add</param>
@@ -183,8 +205,21 @@ public class Deck : MonoBehaviour
     /// <param name="card">Crd we wnt to add</param>
     public void addToSpecial(Card card)
     {        
-        cardsSpecial.Add(card);
+        cardsInSpecial.Add(card);
         cardsInDeck.Remove(card);
+    }
+
+    /// <summary>
+    /// Deleting weather from special box
+    /// </summary>
+    public void deleteFromSpecial()
+    {
+        foreach(Card c in getSpecialCards())
+        {
+            if(c.isSpecial == 5)
+                sendCardToDeathList(c);
+        }
+        cardsInSpecial.Clear();
     }
 
     /// <summary>
@@ -314,8 +349,8 @@ public class Deck : MonoBehaviour
         Card maxCard = null;
         foreach (Card card in cardsInSwords)
         {
-            // checing if card is not a gold one
-            if (card.getPower() > maxPower && card.getIsSpecial() != 1)
+            // checing if card is not a gold one and has no weather effect
+            if ((card.weatherEffect == false && card.getPower() > maxPower && card.getIsSpecial() != 1) || (card.weatherEffect == true && 1 > maxPower && card.getIsSpecial() != 1))
             {
                 maxPower = card.getPower();
                 maxCard = card;
@@ -324,7 +359,7 @@ public class Deck : MonoBehaviour
         foreach (Card card in cardsInBows)
         {
             // checing if card is not a gold one
-            if (card.getPower() > maxPower && card.getIsSpecial() != 1)
+            if ((card.weatherEffect == false && card.getPower() > maxPower && card.getIsSpecial() != 1) || (card.weatherEffect == true && 1 > maxPower && card.getIsSpecial() != 1))
             {
                 maxPower = card.getPower();
                 maxCard = card;
@@ -333,7 +368,7 @@ public class Deck : MonoBehaviour
         foreach (Card card in cardsInTrebuchets)
         {
             // checing if card is not a gold one
-            if (card.getPower() > maxPower && card.getIsSpecial() != 1)
+            if ((card.weatherEffect == false && card.getPower() > maxPower && card.getIsSpecial() != 1) || (card.weatherEffect == true && 1 > maxPower && card.getIsSpecial() != 1))
             {
                 maxPower = card.getPower();
                 maxCard = card;
@@ -356,25 +391,83 @@ public class Deck : MonoBehaviour
         {
             foreach (Card card in getTrebuchetCards())
             {
-                result += card.getPower();
+                if (card.weatherEffect == false)
+                    result += card.getPower();
+                else
+                    result++;
             }
         }
         if (group == 0 || group == 2)
         { 
             foreach (Card card in getBowCards())
             {
-                result += card.getPower();
+                if (card.weatherEffect == false)
+                    result += card.getPower();
+                else
+                    result++;
             }
         }
         if(group == 0 || group == 1)
         { 
             foreach (Card card in getSwordCards())
             {
-                result += card.getPower();
+                if (card.weatherEffect == false)
+                    result += card.getPower();
+                else
+                    result++;
             }
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Tagging cards touched by weather card
+    /// </summary>
+    /// <param name="cardGroup">range of card</param>
+    public void applyWeatherEffect(int cardGroup)
+    {
+        switch(cardGroup)
+        {
+            case 1:
+                foreach (Card card in getSwordCards())
+                {
+                    if (card.getIsSpecial() == 0)
+                        card.weatherEffect = true;
+                }
+                break;
+            case 2:
+                foreach (Card card in getBowCards())
+                {
+                    if (card.getIsSpecial() == 0)
+                        card.weatherEffect = true;
+                }
+                break;
+            case 3:
+                foreach (Card card in getTrebuchetCards())
+                {
+                    if (card.getIsSpecial() == 0)
+                        card.weatherEffect = true;
+                }
+                break;
+            case 4:
+                foreach (Card card in getSwordCards())
+                {
+                    if (card.getIsSpecial() == 0)
+                        card.weatherEffect = false;
+                }
+                foreach (Card card in getBowCards())
+                {
+                    if (card.getIsSpecial() == 0)
+                        card.weatherEffect = false;
+                }
+                foreach (Card card in getTrebuchetCards())
+                {
+                    if (card.getIsSpecial() == 0)
+                        card.weatherEffect = false;
+                }
+                break;
+        }
     }
 
     /// <summary>
@@ -407,7 +500,7 @@ public class Deck : MonoBehaviour
 
             card.transform.position = new Vector3(x, y * -1f, z);
         }
-        foreach(Card card in getSpecial1Cards())
+        foreach(Card card in getSpecialCards())
         {
             float x = card.transform.position.x;
             float y = card.transform.position.y;

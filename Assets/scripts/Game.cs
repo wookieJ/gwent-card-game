@@ -255,6 +255,66 @@ public class Game : MonoBehaviour
                     }
                 }
             }
+            // manekin card on bows
+            else if (areas.getBowColliderBounds().Contains(mouseRelativePosition) && state == (int)Status.ACTIVE_CARD && activeCard.getIsSpecial() == (int)TypeOfCard.MANEKIN)
+            {
+                foreach (Card c in activeDeck.getBowCards())
+                {
+                    if (c.getBounds().Contains(mouseRelativePosition) && c.getIsSpecial() != (int)TypeOfCard.GOLD && c.getIsSpecial() != (int)TypeOfCard.GOLD_SPY && c.getIsSpecial() != (int)TypeOfCard.MANEKIN)
+                    {
+                        activeCard.setActive(false);
+                        activeDeck.moveCardToDeckFromBows(c);
+                        if (activeDeck.addCardToBows(activeCard) == true)
+                        {
+                            activeDeck.disactiveAllInDeck();
+                            state = (int)Status.FREE;
+
+                            if (player1.isPlaying && player2.isPlaying)
+                            {
+                                Debug.Log("switchPlayer()");
+                                switchPlayer();
+                            }
+                            else
+                            {
+                                reorganizeGroup();
+                                state = (int)Status.FREE;
+                                showActiveCard(false);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            // manekin card on trebuchets
+            else if (areas.getTrebuchetColliderBounds().Contains(mouseRelativePosition) && state == (int)Status.ACTIVE_CARD && activeCard.getIsSpecial() == (int)TypeOfCard.MANEKIN)
+            {
+                foreach (Card c in activeDeck.getTrebuchetCards())
+                {
+                    if (c.getBounds().Contains(mouseRelativePosition) && c.getIsSpecial() != (int)TypeOfCard.GOLD && c.getIsSpecial() != (int)TypeOfCard.GOLD_SPY && c.getIsSpecial() != (int)TypeOfCard.MANEKIN)
+                    {
+                        activeCard.setActive(false);
+                        activeDeck.moveCardToDeckFromTrebuchets(c);
+                        if (activeDeck.addCardToTrebuchets(activeCard) == true)
+                        {
+                            activeDeck.disactiveAllInDeck();
+                            state = (int)Status.FREE;
+
+                            if (player1.isPlaying && player2.isPlaying)
+                            {
+                                Debug.Log("switchPlayer()");
+                                switchPlayer();
+                            }
+                            else
+                            {
+                                reorganizeGroup();
+                                state = (int)Status.FREE;
+                                showActiveCard(false);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
             // click on card sword group
             else if (areas.getSwordColliderBounds().Contains(mouseRelativePosition))
             {
@@ -401,7 +461,26 @@ public class Game : MonoBehaviour
                     // weather
                     else if(activeCard.getIsSpecial() == 5)
                     {
+                        int weatherCardRange = activeCard.getPower() * -1;
+                        player1.getDeck().applyWeatherEffect(weatherCardRange);
+                        player2.getDeck().applyWeatherEffect(weatherCardRange);
 
+                        if(weatherCardRange == 4)
+                        {
+                            player1.getDeck().deleteFromSpecial();
+                            player2.getDeck().deleteFromSpecial();
+                        }
+
+                        activeDeck.disactiveAllInDeck();
+                        state = (int)Status.FREE;
+                        if (player1.isPlaying && player2.isPlaying)
+                            switchPlayer();
+                        else
+                        {
+                            reorganizeGroup();
+                            state = (int)Status.FREE;
+                            showActiveCard(false);
+                        }
                     }
                 }
             }
