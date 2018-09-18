@@ -25,6 +25,13 @@ In purpose of producing executable file in Unity choose "File -> Build settings.
 
 Choose "build" for executable file producing or "build and run" for also running it after building.
 
+### TODO
+
+* Retreving dead cards
+* Implementing some special cards effects
+* Adding animations and sound effects
+* Improving graphics
+
 ## Built With
 
 * [Unity](https://unity3d.com/) - Cross-platform game engine developed by Unity Technologies.
