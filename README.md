@@ -27,6 +27,7 @@ Choose "build" for executable file producing or "build and run" for also running
 
 ### TODO
 
+* Add graphics
 * Retreving dead cards
 * Implementing some special cards effects
 * Adding animations and sound effects
