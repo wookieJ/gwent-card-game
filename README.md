@@ -1,5 +1,5 @@
 # gwent-card-game
-game written in C# stylized and modeled on the Gwent game.
+game written in C# stylized and modeled on the Gwent game owned by CD PROJECT RED.
 
 <div style="text-align:center"><img src="../master/Assets/Images/screen.PNG"></div>
 
@@ -27,11 +27,12 @@ Choose "build" for executable file producing or "build and run" for also running
 
 ### TODO
 
-* Add graphics
+* Add assets
 * Retreving dead cards
 * Implementing some special cards effects
 * Adding animations and sound effects
 * Improving graphics
+* AI for singleplayer
 
 ## Built With
 
